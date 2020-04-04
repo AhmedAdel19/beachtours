@@ -1,0 +1,173 @@
+
+
+<?php $__env->startSection('content'); ?>
+
+<div class="login-box">
+
+  <div class="login-logo">
+ManageMyBookings
+  </div>
+
+  <div class="login-box-body">
+    <p class="login-box-msg"><?php echo e(Lang::get('core.login_text')); ?></p>
+
+		<div class="ajaxLoading"></div>
+		<p class="message alert alert-danger " style="display:none;"></p>	
+ 
+	    	<?php if(Session::has('message')): ?>
+				<?php echo Session::get('message'); ?>
+
+			<?php endif; ?>
+		<ul class="parsley-error-list">
+			<?php foreach($errors->all() as $error): ?>
+				<li><?php echo e($error); ?></li>
+			<?php endforeach; ?>
+		</ul>	
+		<div id="login-area">
+
+	   <form method="post" action="<?php echo e(url('user/signin')); ?>" class="form-vertical" id="LoginAjax">
+           
+	      <div class="form-group has-feedback">
+	       <input type="text" name="email" placeholder="<?php echo e(Lang::get('core.emailorusername')); ?>" class="form-control" required="email" />
+<span class="fa fa-envelope fa-lg text-red form-control-feedback"></span>
+	      </div>
+	      <div class="form-group has-feedback">
+	       <input type="password" name="password" placeholder="<?php echo e(Lang::get('core.password')); ?>" class="form-control" required="true" />
+	        <span class="fa fa-unlock fa-lg text-red form-control-feedback"></span>
+	      </div>
+
+			<?php if(CNF_RECAPTCHA =='true'): ?> 
+			<div class="form-group has-feedback ">
+				<label class="text-left"> <?php echo e(Lang::get('core.areyouhuman')); ?> ? </label>	
+				<br />
+				<?php echo captcha_img(); ?> <br /><br />
+				<input type="text" name="captcha" placeholder="Type Security Code" class="form-control" required/>
+				
+				<div class="clr"></div>
+			</div>	
+		 	<?php endif; ?>	
+
+			<?php if(CNF_MULTILANG =='1'): ?> 
+			<div class="form-group has-feedback">
+				
+				<select class="form-control" name="language">
+					<option value="">-- <?php echo e(Lang::get('core.m_sel_lang')); ?> --</option>
+					<?php foreach(SiteHelpers::langOption() as $lang): ?>
+					<option value="<?php echo e($lang['folder']); ?>" <?php if(Session::get('lang') ==$lang['folder']): ?> selected <?php endif; ?>>  <?php echo e($lang['name']); ?></option>
+					<?php endforeach; ?>
+
+				</select>	
+				
+				<div class="clr"></div>
+			</div>	
+		 	<?php endif; ?>			 	
+
+
+	      <div class="row">
+	        <div class="col-xs-4 pull-right">
+	          <button type="submit" class="btn btn-success btn-block btn-flat"><i class="fa fa-sign-in fa-lg" aria-hidden="true"></i>
+ <?php echo e(Lang::get('core.signin')); ?></button>
+	        </div>
+	        <!-- /.col -->
+	      </div>
+	    </form>
+
+	    
+    <a href="javascript:void(0)" class="forgot-button" ><?php echo e(Lang::get('core.forgotpassword')); ?></a><br>
+    <?php if(CNF_REGIST =='true'): ?>
+    	<a href="<?php echo e(url('user/register')); ?>" class="text-center"><?php echo e(Lang::get('core.registernew')); ?></a>	    
+    <?php endif; ?>	
+
+
+	   <?php if($socialize['google']['client_id'] !='' || $socialize['twitter']['client_id'] !='' || $socialize['facebook'] ['client_id'] !=''): ?>
+
+		   <div class="social-auth-links text-center">
+		      <p>- <?php echo e(Lang::get('core.loginsocial')); ?> -</p>
+
+				<?php if($socialize['facebook']['client_id'] !=''): ?> 
+				<a href="<?php echo e(URL::to('user/socialize/facebook')); ?>" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using Facebook </a>
+				<?php endif; ?>
+				<?php if($socialize['google']['client_id'] !=''): ?> 
+				<a href="<?php echo e(URL::to('user/socialize/google')); ?>" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using  Google+ </a>
+				<?php endif; ?>
+				<?php if($socialize['twitter']['client_id'] !=''): ?> 
+				<a href="<?php echo e(URL::to('user/socialize/twitter')); ?>" class="btn btn-block btn-social btn-twitter btn-flat"><i class="fa fa-twitter"></i> Twitter </a>
+				<?php endif; ?>
+		    </div>
+		<?php endif; ?>    
+    </div>
+	    <div id="forgot-area">
+			<form method="post" action="<?php echo e(url('user/request')); ?>" class="form-vertical " id="fr">
+				<input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
+			      <div class="form-group has-feedback">
+			       <input type="text" name="credit_email"  placeholder="<?php echo e(Lang::get('core.enteremailforgot')); ?>" class="form-control" required="email" />
+			        <span class="fa fa-envelope fa-lg text-red form-control-feedback"></span>
+			      </div>
+
+				<div class="form-group has-feedback">        
+			      <button type="button" class="btn btn-danger  btn-flat forgot-button"> <?php echo e(Lang::get('core.sb_cancel')); ?> </button> 
+			      <button type="submit" class="btn btn-success btn-flat pull-right"> <?php echo e(Lang::get('core.sb_submit')); ?> </button>        
+			  </div>
+			  
+			  <div class="clr"></div>
+
+			  
+			</form>
+
+	    </div>  
+
+	      </div>  
+</div>
+
+
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#forgot-area').hide();
+		$('.forgot-button').click(function(){
+			$('#login-area').toggle();
+			$('#forgot-area').toggle();
+		});
+
+		var form = $('#LoginAjax'); 
+		form.parsley();
+		form.submit(function(){
+			
+			if(form.parsley('isValid') == true){			
+				var options = { 
+					dataType:      'json', 
+					beforeSubmit :  showRequest,
+					success:       showResponse  
+				}  
+				$(this).ajaxSubmit(options); 
+				return false;
+							
+			} else {
+				return false;
+			}		
+		
+		});
+
+	});
+
+function showRequest()
+{
+	$('.ajaxLoading').show();		
+}  
+function showResponse(data)  {		
+	
+	if(data.status == 'success')
+	{
+		window.location.href = data.url;	
+		$('.ajaxLoading').hide();
+	} else {
+		$('.message').html(data.message)	
+		$('.ajaxLoading').hide();
+		$('.message').show(data.message)	
+		return false;
+	}	
+}	
+</script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.login', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

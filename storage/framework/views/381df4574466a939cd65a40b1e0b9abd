@@ -1,0 +1,116 @@
+<?php 
+$reviews  = \DB::table('testimonials')->where('status', '=', '0')->count();
+$support  = \DB::table('tbl_tickets')->where('status', '=', 'New')->count();
+$comments = \DB::table('tb_comments')->where('approved', '=', '0')->count();
+?>
+<header class="main-header">
+    <a href="<?php echo e(url('')); ?>" target="_blank" class="logo">
+        <span class="logo-mini">
+        <img src="<?php echo e(asset('mmb/images/MMB-Logo.png')); ?>" width="40px" />
+      </span>
+        <span class="logo-lg">
+        <img src="<?php echo e(asset('mmb/images/MMB-Logo.png')); ?>" width="50px" />
+      </span>
+    </a>
+    <nav class="navbar navbar-static-top">
+    <div class="header-link pull-left"><i class="fa fa-bars fa-lg" data-toggle="offcanvas"></i></div>
+    <div class="header-link tips" title="Dashboard" data-placement="bottom"><a href="<?php echo e(url('dashboard')); ?>"><i class="fa fa-dashboard fa-lg"></i></a></div>
+    <div class="header-link tips" title="<?php echo e(Lang::get('core.calendar1')); ?>" data-placement="bottom"><a href="<?php echo e(url('calendar')); ?>"><i class="fa fa-calendar fa-lg"></i></a></div>
+            <?php if(Session::get('gid') ==1): ?>
+        <div class="header-link pull-right"><a href="<?php echo e(url('user/logout')); ?>" class="tips" title="<?php echo e(Lang::get('core.m_logout')); ?>"  data-placement="bottom" ><i class="fa fa-power-off fa-lg" aria-hidden="true"></i></a></div>
+        <div class="header-link pull-right"><a href="#" data-toggle="control-sidebar" class="tips" title="<?php echo e(Lang::get('core.dash_i_setting')); ?>"  data-placement="bottom" ><i class="fa fa-gear fa-lg" aria-hidden="true"></i></a></div>
+<?php endif; ?>
+                <?php if(CNF_MULTILANG ==1): ?>
+                <div class="header-link pull-right">
+
+                    <?php 
+          $flag ='en';
+          $langname = 'English'; 
+          foreach(SiteHelpers::langOption() as $lang):
+            if($lang['folder'] == Session::get('lang') or $lang['folder'] == 'CNF_LANG') {
+              $flag = $lang['folder'];
+              $langname = $lang['name']; 
+            }
+          endforeach;?>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img class="flag-lang" src="<?php echo e(asset('mmb/images/flags/'.$flag.'.png')); ?>" width="16" height="12" alt="lang" /> <?php echo e(strtoupper($flag)); ?>
+
+                        <span class="hidden-xs">
+             <i class="fa fa-caret-down"></i>
+            </span>
+                    </a>
+                    <ul class="dropdown-menu icons-right animated flipInX">
+                        <li class="header"> <?php echo e(Lang::get('core.m_sel_lang')); ?> </li>
+                        <?php foreach(SiteHelpers::langOption() as $lang): ?>
+                        <li>
+                            <a href="<?php echo e(URL::to('home/lang/'.$lang['folder'])); ?>"><img class="flag-lang" src="<?php echo e(asset('mmb/images/flags/'. $lang['folder'].'.png')); ?>" width="16" height="11" alt="lang" /> <?php echo e($lang['name']); ?></a>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
+                            </div>
+
+                    <?php endif; ?>
+        
+        <?php if(Session::get('gid') ==1): ?>
+            <div class="header-link tips pull-right" title="<?php echo e(Lang::get('core.support')); ?>" data-placement="bottom">
+                <a href="<?php echo e(url('support')); ?>">
+        <i class="fa fa-life-ring fa-lg" aria-hidden="true"></i><span class="label label-danger"><?php if($support!='0'): ?> <?php echo e($support); ?> <?php endif; ?></span>
+                </a>
+        </div>
+    <div class="header-link tips pull-right" title="<?php echo e(Lang::get('core.reviews')); ?>" data-placement="bottom">
+        <a href="<?php echo e(url('testimonials')); ?>">
+                      <i class="fa fa-star-half-o fa-lg"  aria-hidden="true"></i><span class="label label-danger"><?php if($reviews!='0'): ?> <?php echo e($reviews); ?> <?php endif; ?></span>
+                    </a></div>
+    <div class="header-link tips pull-right" title="<?php echo e(Lang::get('core.blogcomments')); ?>" data-placement="bottom"><a href="<?php echo e(url('commentscheck')); ?>">
+                      <i class="fa fa-comments fa-lg" aria-hidden="true"></i>
+ <span class="label label-danger"><?php if($comments!='0'): ?> <?php echo e($comments); ?> <?php endif; ?></span>
+                    </a></div>
+        <div class="header-link tips pull-right " title="CMS" data-placement="bottom">
+                    <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="true">
+                        <i class="fa fa-keyboard-o fa-lg"></i>
+                    </a>
+
+                    <div class="dropdown-menu hdropdown bigmenu animated flipInX">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <a href="<?php echo e(url('core/pages')); ?>">
+                                        <i class="fa fa-newspaper-o fa-lg fa-fw text-yellow"></i>
+                                        <h5>Pages</h5>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="<?php echo e(url('core/posts')); ?>">
+                                        <i class="fa fa-rss-square fa-lg fa-fw text-blue"></i>
+                                        <h5>Blog</h5>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="<?php echo e(url('faqs')); ?>">
+                                        <i class="fa fa-question-circle fa-lg fa-fw text-red"></i>
+                                        <h5>FAQ</h5>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="<?php echo e(url('core/forms')); ?>">
+                                        <i class="fa fa-list fa-lg fa-fw text-green"></i>
+                                        <h5>Forms</h5>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+            
+        </div>
+        
+        <?php endif; ?>
+
+
+
+
+    </nav>
+</header>

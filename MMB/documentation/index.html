@@ -1,0 +1,844 @@
+<!doctype html>
+<!--[if IE 6 ]><html lang="en-us" class="ie6"> <![endif]-->
+<!--[if IE 7 ]><html lang="en-us" class="ie7"> <![endif]-->
+<!--[if IE 8 ]><html lang="en-us" class="ie8"> <![endif]-->
+<!--[if (gt IE 7)|!(IE)]><!-->
+<html lang="en-us">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <title>ManageMyBookings - Get more work done in less time</title>
+    <meta name="description" content="">
+    <meta name="author" content="MMB">
+    <meta name="copyright" content="MMB">
+    <meta name="generator" content="Documenter v2.0 http://rxa.li/documenter">
+    <meta name="date" content="2017-07-30T00:00:00+02:00">
+    <link rel="stylesheet" href="assets/css/documenter_style.css" media="all">
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/jquery.scrollTo.js"></script>
+    <script src="assets/js/jquery.easing.js"></script>
+    <script>
+        document.createElement('section');
+        var duration = '500',
+            easing = 'swing';
+    </script>
+    <script src="assets/js/script.js"></script>
+    <style>
+        html {
+            background-color: #E8F3F8;
+            color: #383838;
+        }
+        
+        ::-moz-selection {
+            background: #DBE6EC;
+            color: #111111;
+        }
+        
+        ::selection {
+            background: #DBE6EC;
+            color: #111111;
+        }
+        
+        #documenter_sidebar #documenter_logo {
+            background-image: url(assets/images/logo.png);
+        }
+        
+        a {
+            color: #81A8B8;
+        }
+        
+        .btn {
+            border-radius: 3px;
+        }
+        
+        .btn-primary {
+            background-image: -moz-linear-gradient(top, #81A8B8, #42565E);
+            background-image: -ms-linear-gradient(top, #81A8B8, #42565E);
+            background-image: -webkit-gradient(linear, 0 0, 0 81A8B8%, from(#C2CBCE), to(#42565E));
+            background-image: -webkit-linear-gradient(top, #81A8B8, #42565E);
+            background-image: -o-linear-gradient(top, #81A8B8, #42565E);
+            background-image: linear-gradient(top, #81A8B8, #42565E);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#81A8B8', endColorstr='#42565E', GradientType=0);
+            border-color: #42565E #42565E #bfbfbf;
+            color: #FFFFFF;
+        }
+        
+        .btn-primary:hover,
+        .btn-primary:active,
+        .btn-primary.active,
+        .btn-primary.disabled,
+        .btn-primary[disabled] {
+            border-color: #81A8B8 #81A8B8 #bfbfbf;
+            background-color: #42565E;
+        }
+        
+        hr {
+            border-top: 1px solid #D7E1E6;
+            border-bottom: 1px solid #EFFAFF;
+        }
+        
+        #documenter_sidebar,
+        #documenter_sidebar ul a {
+            background-color: #C2CBCE;
+            color: #222222;
+        }
+        
+        #documenter_sidebar ul a {
+            -webkit-text-shadow: 1px 1px 0px #DBE5E8;
+            -moz-text-shadow: 1px 1px 0px #DBE5E8;
+            text-shadow: 1px 1px 0px #DBE5E8;
+        }
+        
+        #documenter_sidebar ul {
+            border-top: 1px solid #B4BCBF;
+        }
+        
+        #documenter_sidebar ul a {
+            border-top: 1px solid #DBE5E8;
+            border-bottom: 1px solid #B4BCBF;
+            color: #222222;
+        }
+        
+        #documenter_sidebar ul a:hover {
+            background: #DBE6EC;
+            color: #111111;
+            border-top: 1px solid #DBE6EC;
+        }
+        
+        #documenter_sidebar ul a.current {
+            background: #DBE6EC;
+            color: #111111;
+            border-top: 1px solid #DBE6EC;
+        }
+        
+        #documenter_copyright {
+            display: block !important;
+            visibility: visible !important;
+        }
+
+    </style>
+
+</head>
+
+<body class="documenter-project-managemybookings">
+    <div id="documenter_sidebar">
+        <a href="#documenter_cover" id="documenter_logo"></a>
+        <ul id="documenter_nav">
+            <li><a class="current" href="#documenter_cover">Start</a></li>
+            <li><a href="#server_requirements" title="Server Requirements">Server Requirements</a></li>
+            <li><a href="#preparation_for_mmb_install" title="Preparation for MMB install">Preparation for MMB install</a></li>
+            <li><a href="#install_on_your_domain" title="Install on your domain">Install on your domain</a></li>
+            <li><a href="#install_on_your_subdomain" title="Install on your subdomain">Install on your subdomain</a></li>
+            <li><a href="#setting_up_your_url" title="Setting up your Url">Setting up your Url</a></li>
+            <li><a href="#setting_database_info" title="Setting Database Info">Setting Database Info</a></li>
+            <li><a href="#files_folder_permission" title="Files Folder permission">Files Folder permission</a></li>
+            <li><a href="#access_your_application" title="Access your application">Access your application</a></li>
+            <li><a href="#troubleshoot" title="Troubleshoot">Troubleshoot</a></li>
+            <li><a href="#general_settings" title="General Settings">General Settings</a></li>
+            <li><a href="#site_settings" title="Site Settings">Site Settings</a></li>
+            <li><a href="#users_groups" title="Users & Groups">Users & Groups</a></li>
+            <li><a href="#menu_management" title="Menu Management">Menu Management</a></li>
+            <li><a href="#blast_email" title="Blast Email">Blast Email</a></li>
+            <li><a href="#email_templates" title="Email Templates">Email Templates</a></li>
+            <li><a href="#translations" title="Translations">Translations</a></li>
+            <li><a href="#user_logs_clear_cache" title="User Logs & Clear Cache">User Logs & Clear Cache</a></li>
+            <li><a href="#travellers" title="Travellers">Travellers</a></li>
+            <li><a href="#tours" title="Tours">Tours</a></li>
+            <li><a href="#tour_dates" title="Tour Dates">Tour Dates</a></li>
+            <li><a href="#hotels_room_rates" title="Hotels & Room Rates">Hotels & Room Rates</a></li>
+            <li><a href="#travel_agents" title="Travel Agents">Travel Agents</a></li>
+            <li><a href="#invoice_payments_sales" title="Invoice & Payments & Sales">Invoice & Payments & Sales</a></li>
+            <li><a href="#reviews" title="Reviews">Reviews</a></li>
+            <li><a href="#guides" title="Guides">Guides</a></li>
+        </ul>
+        <div id="documenter_copyright">Copyright MMB 2017</div>
+    </div>
+    <div id="documenter_content">
+        <section id="documenter_cover">
+            <h1>ManageMyBookings</h1>
+            <h2>Get more work done in less time</h2>
+            <div id="documenter_buttons">
+
+            </div>
+            <hr>
+            <ul>
+                <li>created: 07/30/2017</li>
+                <li>latest update: 07/30/2017</li>
+                <li>by: MMB</li>
+                <li><a href="https://www.managemybookings.net/">www.managemybookings.net/</a></li>
+                <li>email: <a href="mailto:&#105;&#110;&#102;&#111;&#64;&#109;&#97;&#110;&#97;&#103;&#101;&#109;&#121;&#98;&#111;&#111;&#107;&#105;&#110;&#103;&#115;&#46;&#110;&#101;&#116;">&#105;&#110;&#102;&#111;&#64;&#109;&#97;&#110;&#97;&#103;&#101;&#109;&#121;&#98;&#111;&#111;&#107;&#105;&#110;&#103;&#115;&#46;&#110;&#101;&#116;</a></li>
+            </ul>
+            <p>MMB management software helps you get more work done in less time. Automate your daily tasks, improve your decision making with real time data, and gather all your business information in one place. Since it's web based you can use it anywhere. With MMB you can
+            </p>
+            <ul>
+            <li>Manage your travel product inventory</li>
+            <li>Use Calendar Module to see all of your tours' departure dates. You can integrate Google Calendar as well</li>
+            <li>Create indivual or group bookings</li>
+            <li>Use Travellers Module to keep all the vital information about your passengers.</li>
+            <li>Create unlimited tours, different departure dates for same tour, create beautiful PDF itineraries</li>
+            <li>Create Group Booking List, Passport List, Emergency List.. All with one click</li>
+            <li>Create Invoices and follow all the payments</li>
+            <li>Easily access, edit and search through all your accommodations, transports and tours. </li>
+            <li>Set up detailed price lists, descriptions, vacancies and other related information. This information can later be used to create quick and hassle-free reservations and itineraries</li>
+            <li>Manage the complete reservation process</li>
+            </ul>
+            <p>
+                MMB can also be used for front office administration roles, so you can create reservations ranging from simple accommodation bookings to complex advanced tours with multiple accommodations, transfers and activities. You can also create invoices for your customers automatically. Payments per invoices can also be tracked directly in system. MMB can help reduce your costs and improve your day to day efficiency. MMB helps you save time. 
+        </p>
+        </section>
+
+        <section id="server_requirements">
+            <div class="page-header">
+                <h3>Server Requirements</h3>
+                <hr class="notop">
+            </div>
+            <div class="page" title="Page 5">
+                <div class="section">
+                    <div class="layoutArea">
+                        <div class="column">
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">To get ManageMyBookings running on your server, you need to make sure your server matches the minimum requirements </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">
+                    1. Apache, nginx, or another compatible web server. <br>
+                    2. PHP &gt;= 5.5.9 &gt;&gt; Higher<br>
+					3. MySQL Database server<br>
+					4. OpenSSL PHP Extension <br>
+                    5. Mbstring PHP Extension<br>
+					6. Tokenizer PHP Extension <br>
+                    7. Module Re_write server<br>
+					8. PHP_CURL Module Enable&nbsp;</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="preparation_for_mmb_install">
+            <div class="page-header">
+                <h3>Preparation for MMB install</h3>
+                <hr class="notop">
+            </div>
+            <div class="page" title="Page 5">
+                <div class="section">
+                    <div class="layoutArea">
+                        <div class="column">
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">1. Download the app from ENVATO and unzip it. </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">2. In unzipped folder you will find folders : mmb</span><span style="font-size: 12.000000pt; font-family: 'LucidaGrande'"> </span><span style="font-size: 12.000000pt; font-family: 'Georgia'">&ndash; database &ndash; documentation </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">3. Create new database on your server or computer if you want to run it on localhost </span>
+                            <img src="assets/images/database1.png" width="100%"></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">4. You can use phpmyadmin or any other mysql database tools provided by your hosting company to import database file database/mmb.sql file into your new database </span>
+                            <img src="assets/images/database2.png" width="100%"></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">5. Now you are ready to upload all the files to your server and install the app </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="install_on_your_domain">
+            <div class="page-header">
+                <h3>Install on your domain</h3>
+                <hr class="notop">
+            </div>
+            <div class="page" title="Page 6">
+                <div class="section">
+                    <div class="layoutArea">
+                        <div class="column">
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">You can install MMB app on a primary domain or a subdomain. </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">Install on your primary domain ( like http://www.yourdomain.com ) </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">1. Put all MMB files and folders before www or public_html folder ( your account&rsquo;s document root directory on a shared server is probably /home/username/public_html .. So all the files need to go / home/username/ ) </span>
+                                <img src="assets/images/files.png" width="100%"><img src="assets/images/files1.png" width="100%"></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">2. After Upload is completed you will find a folder called <strong>Public</strong>. Now you can move all files and folders inside <strong>Public</strong> folder to www or public_html <img src="assets/images/files2.png" width="100%"><br>3. that&rsquo;s it&nbsp;</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>
+                &nbsp;</p>
+        </section>
+        <section id="install_on_your_subdomain">
+            <div class="page-header">
+                <h3>Install on your subdomain</h3>
+                <hr class="notop">
+            </div>
+            <div class="page" title="Page 6">
+                <div class="section">
+                    <div class="layoutArea">
+                        <div class="column">
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">1. Create folder inside your www or public_html folder , then move all mmb files and folders to that folder </span><img src="assets/images/files3.png" width="100%"><img src="assets/images/files4.png" width="100%"><img src="assets/images/files5.png" width="100%"><img src="assets/images/files6.png" width="100%"></p>
+                            <hr>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">2. Create desired subdomain on your control panel and make sure you point your new subdomain location to your new subdomain folder example : public_html/myfoldername/public </span><br><img src="assets/images/files7.png"></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">3. that&rsquo;s it&nbsp;</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>
+                &nbsp;</p>
+        </section>
+        <section id="setting_up_your_url">
+            <div class="page-header">
+                <h3>Setting up your Url</h3>
+                <hr class="notop">
+            </div>
+            <div class="page" title="Page 6">
+                <div class="section">
+                    <div class="layoutArea">
+                        <div class="column">
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">Open config/app.php file using your favourite php editor, </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">go to line 29 and </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">edit &lsquo;url&rsquo; =&gt; &lsquo;http://yourdomainname/&rsquo;&nbsp;</span></p><br><img src="assets/images/files8.png" width="100%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>
+                &nbsp;</p>
+        </section>
+        <section id="setting_database_info">
+            <div class="page-header">
+                <h3>Setting Database Info</h3>
+                <hr class="notop">
+            </div>
+            <div class="page" title="Page 6">
+                <div class="section">
+                    <div class="layoutArea">
+                        <div class="column">
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">Go to main folder where you put all the files and open .env file using your favorite php editor. ( If you can&rsquo;t find .env file, make sure on your Cpanel ( or any Hosting Panel you use ) you are able to see HIDDEN files. </span><img src="assets/images/files9.png" width="100%"><img src="assets/images/files10.png" width="100%"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page" title="Page 7">
+                <div class="section">
+                    <div class="layoutArea">
+                        <div class="column">
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">DB_HOST=localhost </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">DB_DATABASE=mmb </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">DB_USERNAME=your database username </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">DB_PASSWORD=your database password&nbsp;</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>
+                &nbsp;</p>
+        </section>
+        <section id="files_folder_permission">
+            <div class="page-header">
+                <h3>Files Folder permission</h3>
+                <hr class="notop">
+            </div>
+            <div class="page" title="Page 7">
+                <div class="section">
+                    <div class="layoutArea">
+                        <div class="column">
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">Please make sure to set permission to 0775 at following file and folder on linux/unix server </span></p>
+                            <p>
+                                <span style="font-family: Georgia; font-size: 12pt;">/app/Http/Controllers/&nbsp;</span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">/app/Models/ </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">/resources/views/ </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">/setting.php </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">/storage/logs/ </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">/storage/framework/views/ </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">/storage/framework/sessions/&nbsp;</span><img src="assets/images/files11.png" width="100%"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>
+                &nbsp;</p>
+        </section>
+        <section id="access_your_application">
+            <div class="page-header">
+                <h3>Access your application</h3>
+                <hr class="notop">
+            </div>
+            <div class="page" title="Page 7">
+                <div class="section">
+                    <div class="layoutArea">
+                        <div class="column">
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">Now you can access your application via your favourite browser</span><span style="font-size: 12.000000pt; font-family: 'LucidaGrande'"> </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">http://yourdomainname/ </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">If you installed that on subdomain <br>http://yourdomainname/yourappfolder </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">Default Login :</span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">Email Address : &#100;&#101;&#109;&#111;&#64;&#100;&#101;&#109;&#111;&#46;&#99;&#111;&#109; </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">Password : demodemo&nbsp;</span></p>
+                                                        <img src="assets/images/login.png" width="100%">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>
+                &nbsp;</p>
+        </section>
+        
+        <section id="troubleshoot">
+            <div class="page-header">
+                <h3>Troubleshoot</h3>
+                <hr class="notop">
+            </div>
+            <div class="page" title="Page 8">
+                <div class="section">
+                    <div class="layoutArea">
+                        <div class="column">
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">1- Page not found after click any link</span>
+                                <br>
+                                <br>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">This is a common problem. You need to make sure enabling apache re_write module to make sure htaccess working&nbsp;</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>
+                &nbsp;</p>
+        </section>
+        <section id="general_settings">
+            <div class="page-header">
+                <h3>General Settings</h3>
+                <hr class="notop">
+            </div>
+            <div class="page" title="Page 9">
+                <div class="section">
+                    <div class="layoutArea">
+                        <div class="column">
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">After successful install of your application, it is time to set up MMB.</span><span style="font-size: 12.000000pt; font-family: 'LucidaGrande'"> </span><br>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">First go to </span><span style="font-size: 12.000000pt; font-family: 'Georgia'; font-weight: 700">General Settings Menu</span><span style="font-size: 12.000000pt; font-family: 'Georgia'">. </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">This is where you add your company information </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">Enter all the necessary information needed by MMB. </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">Your Company Name, Address, Phone Number, Email Address and Your Company Logo. You can also add your Facebook, Twitter and Instagram Pages.&nbsp;</span><img src="assets/images/files12.png" width="100%"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>
+                &nbsp;</p>
+        </section>
+        <section id="site_settings">
+            <div class="page-header">
+                <h3>Site Settings</h3>
+                <hr class="notop">
+            </div>
+            <div class="page" title="Page 10">
+                <div class="section">
+                    <div class="layoutArea">
+                        <div class="column">
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'; font-weight: 700">Allow Registration : </span><span style="font-size: 12.000000pt; font-family: 'Georgia'">Do you want new users to be able to register on your app? If yes then, check this box. New users or your staff will be able to register on your page. You don&rsquo;t have to create every single user one by one! </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'; font-weight: 700">Registration Activation: </span><span style="font-size: 12.000000pt; font-family: 'Georgia'">Do you let new users register? then choose how to activate their account! </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'; font-weight: 700">Automatic Activation: </span><span style="font-size: 12.000000pt; font-family: 'Georgia'">As soon as they register they can enter the site! ( Not Recommended. You can get lots of unwanted users in your app ) </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'; font-weight: 700">Manual Activation: </span><span style="font-size: 12.000000pt; font-family: 'Georgia'">If you pick manual activation, then you have to activate all the accounts one by one! You have got full control ( isn&rsquo;t that great ). Might be little bit time consuming but that&rsquo;s ok! You got the power! </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'; font-weight: 700">Email with activation link: </span><span style="font-size: 12.000000pt; font-family: 'Georgia'">In this case, new user will have an email with activation code and they will have to activate their new account! </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">Remember, you can remove any unwanted users from your system anytime! </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'; font-weight: 700">Default Group Registration: </span><span style="font-size: 12.000000pt; font-family: 'Georgia'">Remember you can create as many groups of users as you like. Pick one group as a default registration group for your new users. </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'; font-weight: 700">Captcha: </span><span style="font-size: 12.000000pt; font-family: 'Georgia'">Make things little bit difficult for your new users to register. Mixed up letters and alphabets to make registration little more difficult for bots ( Hopefully soon we will start using ReCaptcha ) </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'; font-weight: 700">Main Language: </span><span style="font-size: 12.000000pt; font-family: 'Georgia'">We made MMB multi language system. We know there are still some words that we missed and need to make it translatable. Please let us know if you find anything. </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'; font-weight: 700">DateFormat: </span><span style="font-size: 12.000000pt; font-family: 'Georgia'">Simple. The format of the Date.. Pick one your site. </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'; font-weight: 700">Email: </span><span style="font-size: 12.000000pt; font-family: 'Georgia'">What would you like to use for your emails to be delivered? PhpMailer or SWIFTMailer . If you choose SwiftMailer then make sure you follow all the instructions to configure it properly! </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'; font-weight: 700">Metakey: </span><span style="font-size: 12.000000pt; font-family: 'Georgia'">Well it is just an old habit. Search engines don&rsquo;t use them anylonger but it doesn&rsquo;t hurt to some keywords for your website. By the way, this is for the frontend ! We haven&rsquo;t implemented that yet. Hopefully soon </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'; font-weight: 700">Meta Description : </span><span style="font-size: 12.000000pt; font-family: 'Georgia'">Description of your site. Pretty simple</span><br>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'; font-weight: 700">Restricted IP Address: </span><span style="font-size: 12.000000pt; font-family: 'Georgia'">Any IP address you put in this field will NOT have an access to </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">your app. </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'; font-weight: 700">Allowed IP Address: </span><span style="font-size: 12.000000pt; font-family: 'Georgia'">IP addresses written in this field will have an access to your app. Before you activate this field make sure that your IP address is in the list.&nbsp;</span><img src="assets/images/files13.png" width="100%"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>
+                &nbsp;</p>
+        </section>
+        <section id="users_groups">
+            <div class="page-header">
+                <h3>Users & Groups</h3>
+                <hr class="notop">
+            </div>
+            <div class="page" title="Page 12">
+                <div class="section">
+                    <div class="layoutArea">
+                        <div class="column">
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">In MMB, you can add as many users and user groups as you like.<br>
+					First Create different user groups ( NO:3 ) and give them different level of access! Remember &ldquo;1&rdquo; is LEVEL 1. That is SUPERADMIN that can do everything in the app!! </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">Want to create new user? First pick right user group and a unique username. Then fill up all the necessary fields. Pick the right status! If they are active, they can use the app with no issue. If inactive or Pending then they will have no access to your app.&nbsp;</span></p><img src="assets/images/files14.png" width="100%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>
+                &nbsp;</p>
+        </section>
+        <section id="menu_management">
+            <div class="page-header">
+                <h3>Menu Management</h3>
+                <hr class="notop">
+            </div>
+            <div class="page" title="Page 12">
+                <div class="section">
+                    <div class="layoutArea">
+                        <div class="column">
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">In the menu section, you will see 3 different location. Frontend, Admin Side and Admin Top. Don&rsquo;t worry about Frontend yet. When we get Frontend of the app ready you can use that. Right now Focus on Admin Side and Admin Top. </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'; font-weight: 700">Admin Side: </span><span style="font-size: 12.000000pt; font-family: 'Georgia'">This menu is for main Modules of the app. Like Travelers, Tours, Tour Dates. All the main modules are on the side. You can play with that and rearrange it if you like. </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'; font-weight: 700">Admin Top: </span><span style="font-size: 12.000000pt; font-family: 'Georgia'">This menu is for all the other modules supporting the main modules. Like hotel categories, room types, currencies.&nbsp;</span></p>
+                            <img src="assets/images/files15.png" width="100%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>
+                &nbsp;</p>
+        </section>
+        <section id="blast_email">
+            <div class="page-header">
+                <h3>Blast Email</h3>
+                <hr class="notop">
+            </div>
+            <div class="page" title="Page 13">
+                <div class="section">
+                    <div class="layoutArea">
+                        <div class="column">
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">Blast Mail is used to send emails to your users based on groups and status.&nbsp;</span></p>
+                            <img src="assets/images/files16.png" width="100%">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>
+                &nbsp;</p>
+        </section>
+        <section id="email_templates">
+            <div class="page-header">
+                <h3>Email Templates</h3>
+                <hr class="notop">
+            </div>
+            <div class="page" title="Page 14">
+                <div class="section">
+                    <div class="layoutArea">
+                        <div class="column">
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">These are the email templates we use for registration and forgot password emails. You can change it in anyway you like. Soon we will be adding more templates like invoicing etc..&nbsp;</span></p>
+                     <img src="assets/images/files17.png" width="100%">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="translations">
+            <div class="page-header">
+                <h3>Translations</h3>
+                <hr class="notop">
+            </div>
+            <div class="page" title="Page 14">
+                <div class="section">
+                    <div class="layoutArea">
+                        <div class="column">
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">You can add as many languages as you like. We have got a simple translation interface. You can translate each field in a language you like and app is good to go in new language. </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">First Click Add New Translation and open a modal window. There are 3 fields to fill. Language Name, Folder and Author. </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">Please Use ISO 3166-1 alpha-2 country codes for </span><span style="font-size: 12.000000pt; font-family: 'Georgia'; font-weight: 700">folder name </span><span style="font-size: 12.000000pt; font-family: 'Georgia'">to get the right flag shown &ndash; </span><span style="font-size: 12.000000pt; font-family: 'Georgia'; font-weight: 700; color: rgb(52.941180%, 82.745100%, 48.627450%)">Country Code List&nbsp;</span></p>
+                                         <img src="assets/images/files18.png" width="100%">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>
+                &nbsp;</p>
+        </section>
+        <section id="user_logs_clear_cache">
+            <div class="page-header">
+                <h3>User Logs & Clear Cache</h3>
+                <hr class="notop">
+            </div>
+            <div class="page" title="Page 15">
+                <div class="section">
+                    <div class="layoutArea">
+                        <div class="column">
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">You can control all the log activity on your app.<br>
+					Last menu item is Clear Cache.This will be used to clear any caches at MMB app.&nbsp;</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>
+                &nbsp;</p>
+        </section>
+        <section id="travellers">
+            <div class="page-header">
+                <h3>Travellers</h3>
+                <hr class="notop">
+            </div>
+            <div class="page" title="Page 16">
+                <div class="section">
+                    <div class="layoutArea">
+                        <div class="column">
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">While creating MMB, we also wanted to add full CRM features. This is the page where you can collect all informations about your guests. </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">Do you think we should add more fields? Let us know&nbsp;</span></p>
+                    <img src="assets/images/mod-travellers.png" width="100%">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>
+                &nbsp;</p>
+        </section>
+        <section id="tours">
+            <div class="page-header">
+                <h3>Tours</h3>
+                <hr class="notop">
+            </div>
+            <div class="page" title="Page 18">
+                <div class="section">
+                    <div class="layoutArea">
+                        <div class="column">
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">We have created 2 different modules for tours and tour dates. You can define all the tour tours with with TOUR module. For each tour you create with Tour Module, you can add as many departure dates as you like and each departure date could have different features for the same tour. Tour capacity, price, tour code, tour guide and different departure type such as On Request, Daily, Set Dates.. </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">First Create your tour.&nbsp;</span></p>
+                            <p>
+                                &nbsp;                    <img src="assets/images/mod-tours.png" width="100%">
+</p>
+                            <p>
+                                <span style="font-family: Georgia; font-size: 12pt;">Fill up all the necessary fields and create your tour. After creating your tour go to Tour Page and create the itinerary.&nbsp;</span></p>
+                            <p>
+<img src="assets/images/mod-tours2.png" width="100%">
+                            <img src="assets/images/mod-tours4.png" width="100%"> </p>
+                            <p>
+                                <span style="font-family: Georgia; font-size: 12pt;">This is the SUB MENU. You can add new days to your itinerary or see al the departure dates or create beautiful PDF itineraries to send to your clients.&nbsp;</span>
+                            <img src="assets/images/mod-tours3.png" width="100%"></p>
+                            <p>
+                                <span style="font-family: Georgia; font-size: 12pt;">This is the tour page you have. Add, edit , remove days. Create as many tours as you like.</span></p>
+                                                        <img src="assets/images/mod-tours5.png" width="100%">
+
+                                            <p>
+                                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">After creating tour, you can create departure dates&nbsp;</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>
+                &nbsp;</p>
+        </section>
+        <section id="tour_dates">
+            <div class="page-header">
+                <h3>Tour Dates</h3>
+                <hr class="notop">
+            </div>
+            <div class="page" title="Page 20">
+                <div class="section">
+                    <div class="layoutArea">
+                        <div class="column">
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">Tour Date Module is where you can create departure dates for different tours. </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">First pick your tour category, ( this should be created before hand in under submodules ) then pick your tour under that tour category. Create your unique tour code. Next add tour start and end date. Group size is next. Pick if your tour is featured and/or Definite Departure. </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">Tour Features section is where you can define tour cost for single room, double room, triple room and a child. </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">You can change the status of tour anytime from Active to Inactive and even cancel the tour. </span></p>
+                            <img src="assets/images/mod-tours6.png" width="100%">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page" title="Page 21">
+                <div class="section">
+                    <div class="layoutArea">
+                        <div class="column">
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">On the Tour Dates page, you can see the number of running tours, upcoming tours, past tours and cancelled tours </span>
+                                                        <img src="assets/images/mod-tours7.png" width="100%">
+</p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">After creating your tour date , you can now start booking your tours. </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">This is the look of your tour departure date page where you can see all details about your departure. </span>
+                            <img src="assets/images/mod-tours8.png" width="100%">
+</p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">When the tour is ready to go, you can get Booking Lists, Passport List and Emergency Details List as PDF File</span>                            <img src="assets/images/mod-tours9.png">
+                                <img src="assets/images/mod-tours10.png" width="100%">
+
+</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>
+                &nbsp;</p>
+        </section>
+        <section id="hotels_room_rates">
+            <div class="page-header">
+                <h3>Hotels & Room Rates</h3>
+                <hr class="notop">
+            </div>
+            <div class="page" title="Page 24">
+                <div class="section">
+                    <div class="layoutArea">
+                        <div class="column">
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">Put all details about the hotels you work with. You can create as many rooms as you like with room pictures and price details.&nbsp;</span><img src="assets/images/mod-tours11.png" width="100%"><img src="assets/images/mod-tours12.png" width="100%"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>
+                &nbsp;</p>
+        </section>
+        <section id="travel_agents">
+            <div class="page-header">
+                <h3>Travel Agents</h3>
+                <hr class="notop">
+            </div>
+            <div class="page" title="Page 25">
+                <div class="section">
+                    <div class="layoutArea">
+                        <div class="column">
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">This module is to keep all the information about Tour Operators or Travel Agents you work with.&nbsp;</span><img src="assets/images/mod-tours13.png" width="100%"><img src="assets/images/mod-tours14.png" width="100%"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>
+                &nbsp;</p>
+        </section>
+        <section id="invoice_payments_sales">
+            <div class="page-header">
+                <h3>Invoice & Payments & Sales</h3>
+                <hr class="notop">
+            </div>
+            <div class="page" title="Page 26">
+                <div class="section">
+                    <div class="layoutArea">
+                        <div class="column">
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">Create custom invoices for your customers and download as pdf file. </span>
+                                <img src="assets/images/mod-tours16.png" width="100%">
+                                <img src="assets/images/mod-tours15.png" width="100%">
+                                <img src="assets/images/mod-tours17.png" width="100%"></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">After you receive the payments, you can record it on your app. </span>                                <img src="assets/images/mod-tours18.png" width="100%">
+</p>
+                            <p>
+                                <span style="font-size: 24.000000pt; font-family: 'Georgia'; font-style: italic; color: rgb(26.514610%, 26.515320%, 26.514940%)">Group Sales </span></p>
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">To follow up your commissions from group sales, you can use this module&nbsp;</span><img src="assets/images/mod-tours19.png" width="100%"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>
+                &nbsp;</p>
+        </section>
+        <section id="reviews">
+            <div class="page-header">
+                <h3>Reviews</h3>
+                <hr class="notop">
+            </div>
+            <div class="page" title="Page 31">
+                <div class="section">
+                    <div class="layoutArea">
+                        <div class="column">
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">This module can be used when we finish the frontend. This is the module your customers can write reviews about your tours and all the other services.&nbsp;</span><img src="assets/images/mod-tours20.png" width="100%"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>
+                &nbsp;</p>
+        </section>
+        <section id="guides">
+            <div class="page-header">
+                <h3>Guides</h3>
+                <hr class="notop">
+            </div>
+            <div class="page" title="Page 32">
+                <div class="section">
+                    <div class="layoutArea">
+                        <div class="column">
+                            <p>
+                                <span style="font-size: 12.000000pt; font-family: 'Georgia'">This module is for guides. You can see which guide got how many tours. You can keep their CV and also write notes about your guides.&nbsp;</span>
+                                <img src="assets/images/mod-tours21.png" width="100%">
+                                <img src="assets/images/mod-tours22.png" width="100%"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>
+                &nbsp;</p>
+        </section>
+
+    </div>
+</body>
+
+</html>

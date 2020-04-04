@@ -1,0 +1,292 @@
+<?php $__env->startSection('content'); ?>
+
+    <section class="content-header">
+      <h1> <?php echo e(Lang::get('core.hotels')); ?></h1>
+    </section>
+
+  <div class="content"> 
+      <div class="box box-primary">
+	<div class="box-header with-border">
+		<div class="box-header-tools pull-left" >
+			<a href="<?php echo e(url($pageModule.'?return='.$return)); ?>" class="tips"  title="<?php echo e(Lang::get('core.btn_back')); ?>" ><i class="fa  fa-arrow-left fa-2x"></i></a> 
+		</div>
+		<div class="box-header-tools " >
+			<?php if(Session::get('gid') ==1): ?>
+
+			<?php endif; ?> 			
+		</div> 
+	</div>
+	<div class="box-body"> 	
+		<ul class="parsley-error-list">
+			<?php foreach($errors->all() as $error): ?>
+				<li><?php echo e($error); ?></li>
+			<?php endforeach; ?>
+		</ul>	
+
+		 <?php echo Form::open(array('url'=>'hotels/save?return='.$return, 'class'=>'form-horizontal','files' => true , 'parsley-validate'=>'','novalidate'=>' ')); ?>
+
+        <?php echo Form::hidden('hotelID', $row['hotelID']); ?>					
+                    
+            				<div class="form-group  " >
+										<label for="Hotel Picture" class=" control-label col-md-4 text-left"> <?php echo e(Lang::get('core.hotelpicture')); ?></label>
+										<div class="col-md-7">
+                                            <div class="btn btn-primary btn-file"><i class="fa fa-camera fa-2x"></i> <?php echo e(Lang::get('core.selectfile')); ?>
+
+                                                <input  type='file' name='image' id='image' <?php if($row['image'] ==''): ?> <?php endif; ?> style='width:150px !important;'  /></div>
+					 	<div >
+				        <?php if(file_exists('./uploads/images/'.$row['image']) && $row['image'] !=''): ?>
+<span class="pull-left removeMultiFiles "  url="/uploads/images/<?php echo e($row['image']); ?>">
+<i class="fa fa-trash-o fa-2x text-red " data-toggle="confirmation" data-title="<?php echo e(Lang::get('core.rusure')); ?>" data-content="<?php echo e(Lang::get('core.youwanttodeletethis')); ?>" title="<?php echo e(Lang::get('core.deletethisimage')); ?>" ></i>
+            </span>
+                        <?php echo SiteHelpers::showUploadedFile($row['image'],'/uploads/images/'); ?>
+
+                        <?php endif; ?>
+
+						</div>					
+					 
+										 </div> 
+									  </div><div class="form-group  " >
+										<label for="Hotel Name" class=" control-label col-md-4 text-left"> <?php echo e(Lang::get('core.hotelname')); ?> <span class="asterix"> * </span></label>
+										<div class="col-md-6">
+										  <input  type='text' name='hotel_name' id='hotel_name' value='<?php echo e($row['hotel_name']); ?>' 
+						required     class='form-control ' /> 
+										 </div> 
+									  </div> 					
+									  <div class="form-group  " >
+										<label for="Hotel Description" class=" control-label col-md-4 text-left"> <?php echo e(Lang::get('core.description')); ?> <span class="asterix"> * </span></label>
+										<div class="col-md-6">
+										  <textarea name='hotel_description' rows='3' id='hotel_description' class='form-control '  
+				         required  ><?php echo e($row['hotel_description']); ?></textarea> 
+										 </div> 
+									  </div> 					
+									  <div class="form-group  " >
+										<label for="Hotel Category" class=" control-label col-md-4 text-left"> <?php echo e(Lang::get('core.category')); ?> <span class="asterix"> * </span></label>
+										<div class="col-md-2">
+										  <select name='hotelcategoryID' rows='5' id='hotelcategoryID' class='select2 ' required  ></select> 
+										 </div> 
+										<label for="Hotel Type" class=" control-label col-md-2 text-left"> <?php echo e(Lang::get('core.type')); ?> <span class="asterix"> * </span></label>
+										<div class="col-md-2">
+										  <select name='hoteltypeID' rows='5' id='hoteltypeID' class='select2 ' required  ></select> 
+										 </div> 
+									  </div>
+                <div class="form-group  " >
+										<label for="Country" class=" control-label col-md-4 text-left"> <?php echo e(Lang::get('core.country')); ?> <span class="asterix"> * </span></label>
+										<div class="col-md-2">
+										  <select name='countryID' rows='5' id='countryID' class='select2 ' required  ></select> 
+										 </div> 
+										<label for="City" class=" control-label col-md-2 text-left"> <?php echo e(Lang::get('core.city')); ?> <span class="asterix"> * </span></label>
+										<div class="col-md-2">
+										  <select name='cityID' rows='5' id='cityID' class='select2 ' required  ></select> 
+										 </div> 
+									  </div>
+                <div class="form-group  " >
+										<label for="Address" class=" control-label col-md-4 text-left"><?php echo e(Lang::get('core.address')); ?><span class="asterix"> * </span></label>
+										<div class="col-md-6">
+										  <textarea name='address' rows='2' id='address' class='form-control '  
+				         required  ><?php echo e($row['address']); ?></textarea> 
+										 </div> 
+									  </div>
+   <fieldset> <Legend><?php echo e(Lang::get('core.contactinformation')); ?></Legend>
+            
+                <div class="form-group  " >
+										<label for="Web Site" class=" control-label col-md-4 text-left"><?php echo e(Lang::get('core.website')); ?><span class="asterix"> * </span></label>
+										<div class="col-md-6">
+										  <input  type='text' name='web_site' id='web_site' value='<?php echo e($row['web_site']); ?>' 
+						required     class='form-control ' /> 
+										 </div> 
+									  </div>
+            				 <div class="form-group  " >
+										<label for="Hotel Email" class=" control-label col-md-4 text-left"> <?php echo e(Lang::get('core.email')); ?> <span class="asterix"> * </span></label>
+										<div class="col-md-6">
+										  <input  type='text' name='hotel_email' id='hotel_email' value='<?php echo e($row['hotel_email']); ?>' 
+						required     class='form-control ' /> 
+										 </div> 
+									  </div> 					
+									  <div class="form-group  " >
+										<label for="Phone" class=" control-label col-md-4 text-left"> <?php echo e(Lang::get('core.phone')); ?> <span class="asterix"> * </span></label>
+										<div class="col-md-4">
+										  <input  type='text' name='hotel_phone' id='hotel_phone' value='<?php echo e($row['hotel_phone']); ?>' 
+						required     class='form-control ' /> 
+										 </div> 
+									  </div> 					
+									  <div class="form-group  " >
+										<label for="Fax" class=" control-label col-md-4 text-left"> <?php echo e(Lang::get('core.fax')); ?> </label>
+										<div class="col-md-4">
+										  <input  type='text' name='hotel_fax' id='hotel_fax' value='<?php echo e($row['hotel_fax']); ?>' 
+						     class='form-control ' /> 
+										 </div> 
+									  </div> 
+									   					
+								<div class="form-group  " >
+										<label for="Person In Contact" class=" control-label col-md-4 text-left"> <?php echo e(Lang::get('core.personincontact')); ?> </label>
+										<div class="col-md-4">
+										  <input  type='text' name='person_in_contact' id='person_in_contact' value='<?php echo e($row['person_in_contact']); ?>' 
+						     class='form-control ' /> 
+										 </div> 
+									  </div> 					
+									  <div class="form-group  " >
+										<label for="Contact Phone" class=" control-label col-md-4 text-left"> <?php echo e(Lang::get('core.phone')); ?> </label>
+										<div class="col-md-4">
+										  <input  type='text' name='contact_phone' id='contact_phone' value='<?php echo e($row['contact_phone']); ?>' 
+						     class='form-control ' /> 
+										 </div> 
+									  </div> 					
+									  <div class="form-group  " >
+										<label for="Contact Email" class=" control-label col-md-4 text-left"> <?php echo e(Lang::get('core.email')); ?> </label>
+										<div class="col-md-6">
+										  <input  type='text' name='contact_email' id='contact_email' value='<?php echo e($row['contact_email']); ?>' 
+						     class='form-control ' /> 
+										 </div> 
+									  </div> 		
+									  
+        </fieldset>           
+   <fieldset> <Legend><?php echo e(Lang::get('core.featuresfacilities')); ?></Legend>
+            
+            									  <div class="form-group  " >
+										<label for="Check in" class=" control-label col-md-4 text-left"> <?php echo e(Lang::get('core.checkin')); ?></label>
+										<div class="col-md-2">
+										  <select name='checkin' rows='5' id='checkin' class='select2 '   ></select> 
+										 </div> 
+										<label for="Check out" class=" control-label col-md-2 text-left"> <?php echo e(Lang::get('core.checkout')); ?> </label>
+										<div class="col-md-2">
+										  <select name='checkout' rows='5' id='checkout' class='select2 '   ></select> 
+										 </div> 
+									  </div> 					
+									  <div class="form-group  " >
+										<label for="Facilities" class=" control-label col-md-4 text-left"> <?php echo e(Lang::get('core.facilities')); ?> <span class="asterix"> * </span></label>
+										<div class="col-md-6">
+										  <select name='facilities[]' multiple rows='5' id='facilities' class='select2 ' required  ></select> 
+										 </div> 
+									  </div> 					
+									  <div class="form-group  " >
+										<label for="Payment Options" class=" control-label col-md-4 text-left"> <?php echo e(Lang::get('core.paymentoptions')); ?> <span class="asterix"> * </span></label>
+										<div class="col-md-6">
+										  <select name='paymentoptions[]' multiple rows='5' id='paymentoptions' class='select2 ' required  ></select> 
+										 </div> 
+									  </div> 					
+									  <div class="form-group  " >
+										<label for="Terms & Conditions" class=" control-label col-md-4 text-left"> <?php echo e(Lang::get('core.tandc')); ?> </label>
+										<div class="col-md-6">
+										  <textarea name='policyandterms' rows='3' id='policyandterms' class='form-control '  
+				           ><?php echo e($row['policyandterms']); ?></textarea> 
+										 </div> 
+                                          
+									  </div> 
+       <div class="form-group  " >
+										<label for="Similar Hotels" class=" control-label col-md-4 text-left"> <?php echo e(Lang::get('core.similarhotels')); ?></label>
+										<div class="col-md-6">
+										  <select name='similarhotels[]' multiple rows='5' id='similarhotels' class='select2 '   ></select> 
+										 </div> 
+									  </div>
+
+        </fieldset>           
+   <fieldset> <Legend><?php echo e(Lang::get('core.socialmedia')); ?></Legend>
+            
+            									  <div class="form-group  " >
+										<label for="Tripadvisor" class=" control-label col-md-4 text-left"> Tripadvisor </label>
+										<div class="col-md-6">
+										  <input  type='text' name='tripadvisor' id='tripadvisor' value='<?php echo e($row['tripadvisor']); ?>' 
+						     class='form-control ' /> 
+										 </div> 
+									  </div> 					
+									  <div class="form-group  " >
+										<label for="Facebook" class=" control-label col-md-4 text-left"> Facebook </label>
+										<div class="col-md-6">
+										  <input  type='text' name='facebook' id='facebook' value='<?php echo e($row['facebook']); ?>' 
+						     class='form-control ' /> 
+										 </div> 
+									  </div> 					
+									  <div class="form-group  " >
+										<label for="Twitter" class=" control-label col-md-4 text-left"> Twitter </label>
+										<div class="col-md-6">
+										  <input  type='text' name='twitter' id='twitter' value='<?php echo e($row['twitter']); ?>' 
+						     class='form-control ' /> 
+										 </div> 
+									  </div> 					
+									  <div class="form-group  " >
+										<label for="Instagram" class=" control-label col-md-4 text-left"> Instagram </label>
+										<div class="col-md-6">
+										  <input  type='text' name='instagram' id='instagram' value='<?php echo e($row['instagram']); ?>' 
+						     class='form-control ' /> 
+										 </div> 
+									  </div> 
+                
+                <div class="form-group  " >
+										<label for="Status" class=" control-label col-md-4 text-left"> <?php echo e(Lang::get('core.status')); ?> <span class="asterix"> * </span></label>
+										<div class="col-md-6">
+										  
+					<label class='radio radio-inline'>
+					<input type='radio' name='status' value ='1' required <?php if($row['status'] == '1'): ?> checked="checked" <?php endif; ?> > <?php echo e(Lang::get('core.fr_mactive')); ?> </label>
+					<label class='radio radio-inline'>
+					<input type='radio' name='status' value ='0' required <?php if($row['status'] == '0'): ?> checked="checked" <?php endif; ?> > <?php echo e(Lang::get('core.fr_minactive')); ?> </label> 
+										 </div> 
+									  </div> 								
+        </fieldset>
+		
+				  <div class="form-group">
+					<label class="col-sm-4 text-right">&nbsp;</label>
+					<div class="col-sm-8">	
+					<button type="submit" name="apply" class="btn btn-info btn-sm" > <?php echo e(Lang::get('core.sb_apply')); ?></button>
+					<button type="submit" name="submit" class="btn btn-primary btn-sm" > <?php echo e(Lang::get('core.sb_save')); ?></button>
+					<button type="button" onclick="location.href='<?php echo e(URL::to('hotels?return='.$return)); ?>' " class="btn btn-danger btn-sm ">  <?php echo e(Lang::get('core.sb_cancel')); ?> </button>
+					</div>	  
+				  </div> 
+		 
+		 <?php echo Form::close(); ?>
+
+	</div>
+</div>		 
+</div>	
+		 			<div style="clear:both"></div>	
+
+   <script type="text/javascript">
+	$(document).ready(function() { 
+		
+		$("#hotelcategoryID").jCombo("<?php echo url('hotels/comboselect?filter=def_hotel_categories:hotelcategoryID:category_name&limit=WHERE:status:=:1'); ?>",
+		{  selected_value : '<?php echo e($row["hotelcategoryID"]); ?>' });
+		
+		$("#hoteltypeID").jCombo("<?php echo url('hotels/comboselect?filter=def_hotel_type:hoteltypeID:type_name&limit=WHERE:status:=:1'); ?>",
+		{  selected_value : '<?php echo e($row["hoteltypeID"]); ?>' });
+		
+		$("#countryID").jCombo("<?php echo url('hotels/comboselect?filter=def_country:countryID:country_name'); ?>",
+		{  selected_value : '<?php echo e($row["countryID"]); ?>' });
+		
+		$("#cityID").jCombo("<?php echo url('hotels/comboselect?filter=def_city:cityID:city_name'); ?>&parent=countryID:",
+		{  parent: '#countryID', selected_value : '<?php echo e($row["cityID"]); ?>' });
+		
+		$("#checkin").jCombo("<?php echo url('hotels/comboselect?filter=def_time_slots:timeslotID:time'); ?>",
+		{  selected_value : '<?php echo e($row["checkin"]); ?>' });
+		
+		$("#checkout").jCombo("<?php echo url('hotels/comboselect?filter=def_time_slots:timeslotID:time'); ?>",
+		{  selected_value : '<?php echo e($row["checkout"]); ?>' });
+		
+		$("#facilities").jCombo("<?php echo url('hotels/comboselect?filter=def_hotel_facilities:hotelfacilityID:facility&limit=WHERE:status:=:1'); ?>",
+		{  selected_value : '<?php echo e($row["facilities"]); ?>' });
+		
+		$("#paymentoptions").jCombo("<?php echo url('hotels/comboselect?filter=def_payment_types:paymenttypeID:payment_type&limit=WHERE:status:=:1'); ?>",
+		{  selected_value : '<?php echo e($row["paymentoptions"]); ?>' });
+		
+		$("#similarhotels").jCombo("<?php echo url('hotels/comboselect?filter=hotels:hotelID:hotel_name&limit=WHERE:status:=:1'); ?>",
+		{  selected_value : '<?php echo e($row["similarhotels"]); ?>' });
+		 
+
+		$('.removeMultiFiles').on('click',function(){
+			var removeUrl = '<?php echo e(url("hotels/removefiles?file=")); ?>'+$(this).attr('url');
+			$(this).parent().remove();
+			$.get(removeUrl,function(response){});
+			$(this).parent('div').empty();	
+			return false;
+		});	
+        
+    $('[data-toggle=confirmation]').confirmation({
+    rootSelector: '[data-toggle=confirmation]',
+    container: 'body'
+  });
+
+		
+	});
+</script>
+
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

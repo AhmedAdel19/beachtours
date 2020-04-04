@@ -1,0 +1,18 @@
+<?php foreach($latestposts as $row): ?>
+                <?php if($conpost['commimage'] ==1): ?>
+                    <div class="col-4">
+                      <div class="blog-media">
+                        <a href="<?php echo e(url('blog/view/'.$row->pageID.'/'.$row->alias)); ?>">
+                          <img src="<?php echo e(asset('uploads/images/')); ?>/<?php echo e($row->image != NULL ? $row->image : 'no-image-blog.png'); ?>" class="img-fluid" />
+                        </a>
+                      </div>
+                    </div>
+                <?php endif; ?>
+                    <div class="col-8">
+                      <h5>
+                        <a href="<?php echo e(url('blog/view/'.$row->pageID.'/'.$row->alias)); ?>"><?php echo e($row->title); ?></a>
+                      </h5>
+                        <p><?php echo e(SiteHelpers::TarihFormat($row->created)); ?></p>
+                    </div>
+<?php endforeach; ?>
+                                
