@@ -17,7 +17,7 @@
 										<label for="Country Name" class=" control-label col-md-4 text-left"> {{ Lang::get('core.country') }} <span class="asterix"> * </span></label>
 										<div class="col-md-6">
 										  <input  type='text' name='country_name' id='country_name' value='{{ $row['country_name'] }}'
-												  form.blade.php		required     class='form-control ' />
+												  		required     class='form-control ' />
 										 </div> 
 										 <div class="col-md-2">
 										 	
