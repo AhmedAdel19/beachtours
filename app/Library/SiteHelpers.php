@@ -148,8 +148,9 @@ class SiteHelpers
 	}	
 	
 	public static function encryptID($id,$decript=false,$pass='',$separator='-', & $data=array()) {
+        if($id == "")$id=0;
 		$pass = $pass?$pass:Config::get('app.key');
-		$pass2 = Config::get('app.url');;
+		$pass2 = Config::get('app.url');
 		$bignum = 200000000;
 		$multi1 = 500;
 		$multi2 = 50;

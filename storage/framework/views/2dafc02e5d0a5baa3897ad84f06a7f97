@@ -9,16 +9,25 @@
 
 	<div class="box-body"> 
 <?php endif; ?>	
-			<?php echo Form::open(array('url'=>'tourcategories/save/'.SiteHelpers::encryptID($row['tourcategoriesID']?$row['tourcategoriesID']:0), 'class'=>'form-horizontal','files' => true , 'parsley-validate'=>'','novalidate'=>' ','id'=> 'tourcategoriesFormAjax')); ?>
+			<?php echo Form::open(array('url'=>'airlines/save/'.SiteHelpers::encryptID($row['airlineID']), 'class'=>'form-horizontal','files' => true , 'parsley-validate'=>'','novalidate'=>' ','id'=> 'airlinesFormAjax')); ?>
 
 			<div class="col-md-12">
-						<fieldset><legend> <?php echo e(Lang::get('core.tourcategories')); ?></legend>
-				<?php echo Form::hidden('tourcategoriesID', $row['tourcategoriesID']); ?>					
+						<fieldset><legend> <?php echo e(Lang::get('core.airlines')); ?></legend>
+				<?php echo Form::hidden('airlineID', $row['airlineID']); ?>					
 									  <div class="form-group  " >
-										<label for="Tour Category" class=" control-label col-md-4 text-left"> <?php echo e(Lang::get('core.tourcategory')); ?> <span class="asterix"> * </span></label>
+										<label for="Airline" class=" control-label col-md-4 text-left"> <?php echo e(Lang::get('core.airline')); ?><span class="asterix"> * </span></label>
 										<div class="col-md-6">
-										  <input  type='text' name='tourcategoryname' id='tourcategoryname' value='<?php echo e($row['tourcategoryname']); ?>' 
+										  <input  type='text' name='airline' id='airline' value='<?php echo e($row['airline']); ?>' 
 						required     class='form-control ' /> 
+										 </div> 
+										 <div class="col-md-2">
+										 	
+										 </div>
+									  </div> 					
+									  <div class="form-group  " >
+										<label for="Country" class=" control-label col-md-4 text-left"> <?php echo e(Lang::get('core.country')); ?> <span class="asterix"> * </span></label>
+										<div class="col-md-6">
+										  <select name='countryID' rows='5' id='countryID' class='select2 ' required  ></select> 
 										 </div> 
 										 <div class="col-md-2">
 										 	
@@ -29,9 +38,9 @@
 										<div class="col-md-6">
 										  
 					<label class='radio radio-inline'>
-					<input type='radio' name='status' value ='0' required <?php if($row['status'] == '0'): ?> checked="checked" <?php endif; ?> > <?php echo e(Lang::get('core.fr_minactive')); ?> </label>
+					<input type='radio' name='status' value ='1' required <?php if($row['status'] == '1'): ?> checked="checked" <?php endif; ?> > <?php echo e(Lang::get('core.fr_mactive')); ?> </label>
 					<label class='radio radio-inline'>
-					<input type='radio' name='status' value ='1' required <?php if($row['status'] == '1'): ?> checked="checked" <?php endif; ?> > <?php echo e(Lang::get('core.fr_mactive')); ?> </label> 
+					<input type='radio' name='status' value ='0' required <?php if($row['status'] == '0'): ?> checked="checked" <?php endif; ?> > <?php echo e(Lang::get('core.fr_minactive')); ?> </label> 
 										 </div> 
 										 <div class="col-md-2">
 										 	
@@ -65,10 +74,12 @@
 			 
 <script type="text/javascript">
 $(document).ready(function() { 
-	 
+	
+		$("#countryID").jCombo("<?php echo url('airlines/comboselect?filter=def_country:countryID:country_name&limit=WHERE:status:=:1'); ?>",
+		{  selected_value : '<?php echo e($row["countryID"]); ?>' });
+		 
 	
 	$('.editor').summernote();
-	
 	$('.tips').tooltip();	
 	$(".select2").select2({ width:"100%" , dropdownParent: $('#mmb-modal-content')});	
 		$('.date').datetimepicker({format: 'yyyy-mm-dd', autoclose:true , minView:2 , startView:2 , todayBtn:true }); 
@@ -78,14 +89,14 @@ $(document).ready(function() {
 		radioClass: 'iradio_square-red',
 	});			
 		$('.removeMultiFiles').on('click',function(){
-			var removeUrl = '<?php echo e(url("tourcategories/removefiles?file=")); ?>'+$(this).attr('url');
+			var removeUrl = '<?php echo e(url("airlines/removefiles?file=")); ?>'+$(this).attr('url');
 			$(this).parent().remove();
 			$.get(removeUrl,function(response){});
 			$(this).parent('div').empty();	
 			return false;
 		});
 				
-	var form = $('#tourcategoriesFormAjax'); 
+	var form = $('#airlinesFormAjax'); 
 	form.parsley();
 	form.submit(function(){
 		

@@ -150,7 +150,6 @@ return [
         GrahamCampbell\Markdown\MarkdownServiceProvider::class,  
         Collective\Html\HtmlServiceProvider::class,
         Vsmoraes\Pdf\PdfServiceProvider::class    ,
-        Barryvdh\Snappy\ServiceProvider::class,
 
     ],
 
@@ -205,10 +204,8 @@ return [
         'Socialize' => Laravel\Socialite\Facades\Socialite::class,
         'Markdown'  => GrahamCampbell\Markdown\Facades\Markdown::class,
         'Socialize' => Laravel\Socialite\Facades\Socialite::class,
-        'PDF'       => Barryvdh\Snappy\Facades\SnappyPdf::class,
+        'PDF'       => 'Vsmoraes\Pdf\PdfFacade',
         'Carbon'    => 'Carbon\Carbon',
-        'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
-
     ],
 
 ];

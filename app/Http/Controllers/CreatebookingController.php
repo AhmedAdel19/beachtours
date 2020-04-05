@@ -209,9 +209,7 @@ class CreatebookingController extends Controller {
 			++$third;
 		}
 		$this->data['hotel']  = $hotel;
-            
-            
-        $flights 		=  \DB::table('book_flight')->where('bookingID',$id)->orderBy('status','desc')->get();
+        $flights =  \DB::table('book_flight')->where('bookingID',$id)->orderBy('status','desc')->get();
 		$flight = array();
 		$fourth = 0;
 		foreach($flights as $fl)
@@ -236,7 +234,7 @@ class CreatebookingController extends Controller {
 		$this->data['flight']  = $flight;
             
             
-        $cars 		=  \DB::table('book_car')->where('bookingID',$id)->orderBy('status','desc')->get();
+        $cars 	=  \DB::table('book_car')->where('bookingID',$id)->orderBy('status','desc')->get();
 		$car = array();
 		$fifth = 0;
 		foreach($cars as $cr)

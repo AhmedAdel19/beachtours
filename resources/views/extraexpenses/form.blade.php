@@ -9,7 +9,7 @@
 
 	<div class="box-body"> 
 @endif	
-			{!! Form::open(array('url'=>'extraexpenses/save/'.SiteHelpers::encryptID($row['expenseID']), 'class'=>'form-horizontal','files' => true , 'parsley-validate'=>'','novalidate'=>' ','id'=> 'extraexpensesFormAjax')) !!}
+			{!! Form::open(array('url'=>'extraexpenses/save/'.SiteHelpers::encryptID($row['expenseID']?$row['expenseID']:0), 'class'=>'form-horizontal','files' => true , 'parsley-validate'=>'','novalidate'=>' ','id'=> 'extraexpensesFormAjax')) !!}
 			<div class="col-md-12">
 						<fieldset><legend> {{ Lang::get('core.extraexpenses') }}</legend>
 				{!! Form::hidden('expenseID', $row['expenseID']) !!}					

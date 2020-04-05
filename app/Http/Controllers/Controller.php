@@ -15,7 +15,7 @@ abstract class Controller extends BaseController {
 
 	public function __construct()
 	{
-		
+
 		$this->middleware('ipblocked');
 		
         $driver             = config('database.default');
@@ -802,15 +802,19 @@ abstract class Controller extends BaseController {
 			 return view('mmb.module.utility.word',$content);
 			 
 		} else if($t == 'pdf') {
-            $pdf = App::make('snappy.pdf.wrapper');
+            $html = view('mmb.module.utility.pdf', $content)->render();
+         //   $defaultOptions = \PDF::getOptions();
+           // $defaultOptions->setDefaultFont('Courier');
 
-		 	$html = view('mmb.module.utility.pdf', $content)->render();
-	    	return $pdf->loadHTML($html)->inline();
+            return \PDF::load($html)->filename('output.pdf')->download();
+          //  return \PDF::load($html)->output();
+//		 	$html = view('mmb.module.utility.pdf', $content)->render();
+//	    	return \PDF::load($html)->show();
 
 		} else if($t == 'csv') {
 		 
 			return view('mmb.module.utility.csv',$content);
-			
+
 		} else if ($t == 'print') {
 		
 			//return view('mmb.module.utility.print',$content);

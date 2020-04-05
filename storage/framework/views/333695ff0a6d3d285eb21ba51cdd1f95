@@ -1,0 +1,20 @@
+<?php $__env->startSection('content'); ?>
+<section class="content-header">
+  <h1> <?php echo e(Lang::get('core.airlines')); ?></h1>
+</section>
+
+  <div class="content"> 
+		<div class="resultData"></div>
+		<div class="ajaxLoading"></div>
+		<div id="<?php echo e($pageModule); ?>View"></div>			
+		<div id="<?php echo e($pageModule); ?>Grid"></div>
+	</div>	
+	<!-- End Content -->  
+
+<script>
+$(document).ready(function(){
+	reloadData('#<?php echo e($pageModule); ?>','<?php echo e($pageModule); ?>/data');	
+});	
+</script>	
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

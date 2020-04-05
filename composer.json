@@ -14,7 +14,8 @@
         "vsmoraes/laravel-pdf": "^1.0",   
         "php-http/message": "^1.4",
         "php-http/guzzle6-adapter": "^1.1",
-        "barryvdh/laravel-snappy": "^0.3.3"
+        "barryvdh/laravel-snappy": "^0.3.3",
+        "barryvdh/laravel-dompdf": "^0.6.1"
        
     },
     "require-dev": {
