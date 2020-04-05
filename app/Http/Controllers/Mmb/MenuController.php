@@ -124,9 +124,9 @@ class MenuController extends Controller {
 			'menu_type'	=> 'required',
 			'position'	=> 'required',	
 		);
-		$validator = Validator::make($request->all(), $rules);	
+		$validator = Validator::make($request->all(), $rules);
 		if ($validator->passes()) {
-			$pos = $request->input('position');	
+			$pos = $request->input('position');
 			$data = $this->validatePost('tb_menu');
 
 			//echo '<pre>'; print_r($data); echo '</pre>'; exit;
@@ -159,7 +159,9 @@ class MenuController extends Controller {
 				->with('messagetext', 'Data Has Been Saved Successfully')->with('msgstatus','success');
 
 		} else {
-			return Redirect::to('core/menu?pos='.$pos)
+            $pos = $request->input('position');
+
+            return Redirect::to('core/menu?pos='.$pos)
 				->with('messagetext', 'The following errors occurred')->with('msgstatus','error')->withErrors($validator)->withInput();
 
 			
