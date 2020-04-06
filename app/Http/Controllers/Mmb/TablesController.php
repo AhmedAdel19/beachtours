@@ -20,7 +20,7 @@ class TablesController extends Controller
         );          
 	}	
 
-   	public function getIndex()
+   	public function getIndex(Request $request)
 	{
 		$this->data['tables'] = Module::getTableList($this->db);    
 		return view('mmb.tables.index',$this->data);

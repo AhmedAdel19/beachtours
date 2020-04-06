@@ -20,7 +20,7 @@ class CodeController extends Controller {
         $this->dbhost       = $database[$driver]['host'];       
     }
 
-    function getIndex()
+    function getIndex(Request $request)
     {
         return view('mmb.code.index');
     }

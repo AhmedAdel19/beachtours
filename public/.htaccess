@@ -1,28 +1,29 @@
-<IfModule mod_rewrite.c>
+#------------------------------------------------------------------------------
+# Server root folder www .htaccess
+# This file provides server security limiting access to the localhost only.
+# Comment next four lines to deactivate. (Allows external access)
+#------------------------------------------------------------------------------
 
-    RewriteEngine On
+Order Deny,Allow
+Deny from all
+Allow from 127.0.0.1
+Allow from ::1
 
-    # Redirect Trailing Slashes...
-    RewriteRule ^(.*)/$ /$1 [L,R=301]
+#------------------------------------------------------------------------------
+# To allow execution of cgi scripts in this directory uncomment next two lines.
+#------------------------------------------------------------------------------
 
-    # Handle Front Controller...
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ index.php [L]
-</IfModule>
-## EXPIRES CACHING ##
-<IfModule mod_expires.c>
-ExpiresActive On
-ExpiresByType image/jpg "access 1 year"
-ExpiresByType image/jpeg "access 1 year"
-ExpiresByType image/gif "access 1 year"
-ExpiresByType image/png "access 1 year"
-ExpiresByType text/css "access 1 month"
-ExpiresByType text/html "access 1 month"
-ExpiresByType application/pdf "access 1 month"
-ExpiresByType text/x-javascript "access 1 month"
-ExpiresByType application/x-shockwave-flash "access 1 month"
-ExpiresByType image/x-icon "access 1 year"
-ExpiresDefault "access 1 month"
-</IfModule>
-## EXPIRES CACHING ##
+AddHandler cgi-script .pl .cgi
+Options +ExecCGI +FollowSymLinks
+
+#------------------------------------------------------------------------------
+# Activate this section to use the Private Server Feature!
+# Defaults: Username - root; Password - root
+# Note AuthUserFile: File path is relative to server root
+# To lock server, uncomment the next 4 lines. (A name and password is required)
+#------------------------------------------------------------------------------
+
+#AuthName "Uniform Server - Server Access"
+#AuthType Basic
+#AuthUserFile ../../htpasswd/www/.htpasswd
+#Require valid-user

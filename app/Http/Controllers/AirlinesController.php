@@ -31,9 +31,9 @@ class AirlinesController extends Controller {
 				
 	} 
 	
-	public function getIndex()
+	public function getIndex(Request $request)
 	{
-		if($this->access['is_view'] ==0) 
+		if($this->access == false || $this->access['is_view'] ==0)
 			return Redirect::to('dashboard')->with('messagetext',\Lang::get('core.note_restric'))->with('msgstatus','error');
 				
 		$this->data['access']		= $this->access;	

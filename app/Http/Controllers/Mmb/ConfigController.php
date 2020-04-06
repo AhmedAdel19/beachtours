@@ -18,7 +18,7 @@ class ConfigController extends Controller {
        
     }
 
-	public function getIndex()
+	public function getIndex(Request $request)
 	{	
         $this->data = array(
             'pageTitle' =>  \Lang::get('core.t_generalsetting'),

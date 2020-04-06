@@ -13,6 +13,9 @@ abstract class Controller extends BaseController {
 
 	use DispatchesJobs, ValidatesRequests;
 
+    protected $access = [
+        'is_view' => 0,
+    ];
 	public function __construct()
 	{
 
@@ -60,6 +63,11 @@ abstract class Controller extends BaseController {
 	} 	
 
 
+	public function getIndex(Request $request){
+        if ($this->access == false){
+            $this->access['is_view'] = 0;
+        }
+    }
 	function getComboselect( Request $request)
 	{
 
