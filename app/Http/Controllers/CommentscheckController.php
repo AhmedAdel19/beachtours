@@ -33,7 +33,8 @@ class CommentscheckController extends Controller {
 	
 	public function getIndex(Request $request)
 	{
-		if($this->access['is_view'] ==0) 
+        parent::getIndex($request);
+        if($this->access['is_view'] ==0)
 			return Redirect::to('dashboard')->with('messagetext',\Lang::get('core.note_restric'))->with('msgstatus','error');
 				
 		$this->data['access']		= $this->access;	
@@ -41,7 +42,8 @@ class CommentscheckController extends Controller {
 	}	
 
 	public function postData( Request $request)
-	{ 
+	{
+
 		$sort = (!is_null($request->input('sort')) ? $request->input('sort') : $this->info['setting']['orderby']); 
 		$order = (!is_null($request->input('order')) ? $request->input('order') : $this->info['setting']['ordertype']);
 		// End Filter sort and order for query 

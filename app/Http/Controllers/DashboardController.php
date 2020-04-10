@@ -19,7 +19,7 @@ class DashboardController extends Controller {
 
 	public function getIndex( Request $request )
 	{
-        parent::getIndex($request);
+     //   parent::getIndex($request);
         $graph = \DB::table('bookings')
     ->select(\DB::raw('MONTHNAME(created_at) as month'), \DB::raw("DATE_FORMAT(created_At,'%M %Y') as monthNum"),    \DB::raw('count(*) as totalbook'))
     ->groupBy('monthNum')

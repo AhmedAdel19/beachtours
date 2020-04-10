@@ -7,20 +7,18 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Validator, Input, Redirect ;
+use Vsmoraes\Pdf\Pdf;
 
 
 abstract class Controller extends BaseController {
 
 	use DispatchesJobs, ValidatesRequests;
 
-    protected $access = [
-        'is_view' => 0,
-    ];
 	public function __construct()
 	{
 
 		$this->middleware('ipblocked');
-		
+
         $driver             = config('database.default');
         $database           = config('database.connections');
        
@@ -59,8 +57,8 @@ abstract class Controller extends BaseController {
 		$data = array(
 				'last_activity'=> strtotime(Carbon::now())
 			);
-		\DB::table('tb_users')->where('id',\Session::get('uid'))->update($data);   
-	} 	
+		\DB::table('tb_users')->where('id',\Session::get('uid'))->update($data);
+	}
 
 
 	public function getIndex(Request $request){
@@ -808,29 +806,20 @@ abstract class Controller extends BaseController {
 		if($t == 'word')
 		{			
 			 return view('mmb.module.utility.word',$content);
-			 
+
 		} else if($t == 'pdf') {
             $html = view('mmb.module.utility.pdf', $content)->render();
-         //   $defaultOptions = \PDF::getOptions();
+          //  $defaultOptions = \PDF::getOptions();
            // $defaultOptions->setDefaultFont('Courier');
 
-            return \PDF::load($html)->filename('output.pdf')->download();
-          //  return \PDF::load($html)->output();
-//		 	$html = view('mmb.module.utility.pdf', $content)->render();
-//	    	return \PDF::load($html)->show();
 
+            return \PDF::load($html)->filename('output.pdf')->download()->setPaper('a4','portrait');
 		} else if($t == 'csv') {
-		 
 			return view('mmb.module.utility.csv',$content);
-
 		} else if ($t == 'print') {
-		
-			//return view('mmb.module.utility.print',$content);
-			$data['html'] = view('mmb.module.utility.print', $content)->render();	
-			return view('layouts.blank',$data);			 
-			 				 
-		} else  {			
-		
+            $html = view('mmb.module.utility.pdf', $content)->render();
+            return $html;
+		} else  {
 			 return view('mmb.module.utility.excel',$content);
 		}	
 	}		

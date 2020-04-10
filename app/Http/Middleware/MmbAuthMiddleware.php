@@ -21,6 +21,7 @@ class MmbAuthMiddleware
         {
             return redirect('dashboard')->with('msgstatus','error')->with('messagetext','Sorry! This is not your page');
         }
+
         return $next($request);
     }
 }

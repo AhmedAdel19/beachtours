@@ -19,7 +19,8 @@ class ConfigController extends Controller {
     }
 
 	public function getIndex(Request $request)
-	{	
+	{
+
         $this->data = array(
             'pageTitle' =>  \Lang::get('core.t_generalsetting'),
             'pageNote'  =>   \Lang::get('core.t_generalsettingsmall'),
@@ -103,7 +104,8 @@ class ConfigController extends Controller {
             $val .= 	"define('CNF_ANALYTICS','".CNF_ANALYTICS."');\n";
 
 			$val .= 	"?>";
-	
+
+
 			$filename = base_path().'/setting.php';
 			$fp=fopen($filename,"w+"); 
 			fwrite($fp,$val); 
@@ -178,7 +180,7 @@ class ConfigController extends Controller {
 	
 	public function getSecurity()
 	{
-		
+
 		$this->data = array(
 			'groups'	=> Groups::all(),
 			'pageTitle'	=> \Lang::get('core.t_loginsecurity'),
@@ -187,8 +189,9 @@ class ConfigController extends Controller {
 			
 		);
 		
-	
-		return view('mmb.config.security',$this->data);		
+
+	//dd($this->data );
+		return view('mmb.config.security',$this->data);
 	
 	}	
 	
@@ -225,7 +228,7 @@ class ConfigController extends Controller {
 			$val .= 	"define('CNF_MULTILANG','".(!is_null($request->input('cnf_multilang')) ? 1 : 0 )."');\n";
             $val .= 	"define('CNF_LANG','".$request->input('cnf_lang')."');\n";
 			$val .= 	"define('CNF_REGIST','".(!is_null($request->input('CNF_REGIST')) ? 'true':'false')."');\n";		
-			$val .= 	"define('CNF_FRONT','".(!is_null($request->input('CNF_FRONT')) ? 'true':'false')."');\n";		
+			$val .= 	"define('CNF_FRONT','".(!is_null($request->input('CNF_FRONT')) ? 'true':'false')."');\n";
 			$val .= 	"define('CNF_RECAPTCHA','".(!is_null($request->input('CNF_RECAPTCHA')) ? 'true':'false')."');\n";	
             $val .= 	"define('CNF_THEME','".$request->input('cnf_theme')."');\n";		
 			$val .= 	"define('CNF_RECAPTCHAPUBLICKEY','');\n";
@@ -244,11 +247,12 @@ class ConfigController extends Controller {
 
 			$val .= 	"?>";
 	
-			$filename = '../setting.php';
+			$filename = base_path().'/setting.php';
 			$fp=fopen($filename,"w+"); 
 			fwrite($fp,$val); 
 			fclose($fp); 
-			return Redirect::to('core/config/security')->with('messagetext',\Lang::get('core.settingsaved'))->with('msgstatus','success');
+			return Redirect::to('core/config/security')->with('messagetext',\Lang::get('core.settingsaved'))
+                ->with('msgstatus','success')->withInput();
 		} else {
 			return Redirect::to('core/config/security')->with('messagetext', \Lang::get('core.followingerror'))->with('msgstatus','error')
 			->withErrors($validator)->withInput();

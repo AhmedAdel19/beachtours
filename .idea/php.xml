@@ -88,6 +88,7 @@
       <path value="$PROJECT_DIR$/vendor/knplabs/knp-snappy" />
       <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-snappy" />
       <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-dompdf" />
+      <path value="$PROJECT_DIR$/vendor/dompdf-/dompdf" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="5.5.0" />

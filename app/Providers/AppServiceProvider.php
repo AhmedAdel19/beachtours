@@ -13,6 +13,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+      //  include('settings.php');
+        if (!defined('CNF_APPNAME')) {
+            include base_path().'/setting.php';
+        }
 
     }
 

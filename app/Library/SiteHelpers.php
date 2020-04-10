@@ -40,7 +40,7 @@ class SiteHelpers
 					
 							$menu2 = array(
 									'menu_id'		=> $row2->menu_id,
-									'module'		=> $row2->module,
+    									'module'		=> $row2->module,
 									'menu_type'		=> $row2->menu_type,
 									'url'			=> $row2->url,
 									'menu_name'		=> $row2->menu_name,

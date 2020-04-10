@@ -15,7 +15,7 @@ class IpblockedMiddleware
      */
     public function handle($request, Closure $next)
     {
-
+//dd(CNF_ALLOWIP);
         if(CNF_ALLOWIP !='')
         { 
             $ipsAllow = explode(',',preg_replace('/\s+/', '', CNF_ALLOWIP));

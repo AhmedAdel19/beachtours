@@ -147,7 +147,7 @@ class UserController extends Controller {
 	}
 
 	public function postSignin( Request $request) {
-		
+
 		$rules = array(
 			'email'=>'required',
 			'password'=>'required',
@@ -159,7 +159,7 @@ class UserController extends Controller {
 			$remember = (!is_null($request->get('remember')) ? 'true' : 'false' );
 			
 			if (\Auth::attempt(array('email'=>$request->input('email'), 'password'=> $request->input('password') ), $remember )
-                           or 
+                or
             \Auth::attempt(array('username'=>$request->input('email'), 'password'=> $request->input('password') ), $remember )
         )
                 
@@ -208,27 +208,23 @@ class UserController extends Controller {
 
 						if($request->ajax() == true )
 						{
-							if(CNF_FRONT =='false') :
-								return response()->json(['status' => 'success', 'url' => url('dashboard')]);					
-							else :
-								return response()->json(['status' => 'success', 'url' => url('')]);
-							endif;	
+                            return response()->json(['status' => 'success', 'url' => url('dashboard')]);
+
+//						    dd(CNF_FRONT);
+//							if(CNF_FRONT =='false') :
+//							else :
+//								return response()->json(['status' => 'success', 'url' => url('')]);
+//							endif;
 
 						} else {
 							if(CNF_FRONT =='false') :
 								return Redirect::to('dashboard');						
 							else :
 								return Redirect::to('');
-							endif;	
-
+							endif;
 						}
-
-						
-											
-					}			
-					
-				}			
-				
+					}
+				}
 			} else {
 
 				if($request->ajax() == true )
@@ -240,8 +236,6 @@ class UserController extends Controller {
 						->with('message', \SiteHelpers::alert('error','Your username/password combination was incorrect'))
 						->withInput();					
 				}
-
-
 			}
 		} else {
 
@@ -253,9 +247,7 @@ class UserController extends Controller {
 					return Redirect::to('user/login')
 						->with('message', \SiteHelpers::alert('error','The following  errors occurred'))
 						->withErrors($validator)->withInput();
-				}	
-		
-
+				}
 		}	
 	}
 

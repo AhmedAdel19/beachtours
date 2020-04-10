@@ -225,7 +225,7 @@ class Mmb extends Model {
 			return $data;		
 			
 		} else {
-			return false;
+			return array('is_view'=>0);
 		}			
 	
 	}	

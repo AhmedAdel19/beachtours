@@ -1,0 +1,25 @@
+<div class="col-md-3" id="sidebar">
+ <div class="theiaStickySidebar">
+    <div class="box box-solid">
+        <div class="box-body no-padding">
+            <ul class="nav nav-pills nav-stacked">
+                <li <?php if($active=='' ): ?> class="active" <?php endif; ?>><a href="<?php echo e(URL::to('core/config/')); ?>"><i class="fa fa-gear fa-fw fa-2x"></i> <?php echo e(Lang::get('core.t_generalsetting')); ?></a></li>
+                <li <?php if($active=='security' ): ?> class="active" <?php endif; ?>><a href="<?php echo e(URL::to('core/config/security')); ?>"><i class="fa fa-unlock fa-fw fa-2x"></i> <?php echo e(Lang::get('core.sitesettings')); ?></a></li>
+                <li <?php if($active=='users' ): ?> class="active" <?php endif; ?>><a href="<?php echo e(URL::to('core/users/')); ?>"><i class="fa fa-user fa-fw fa-2x"></i> <?php echo e(Lang::get('core.m_users')); ?></a></li>
+                <li <?php if($active=='groups' ): ?> class="active" <?php endif; ?>><a href="<?php echo e(URL::to('core/groups/')); ?>"><i class="fa fa-users fa-fw fa-2x"></i> <?php echo e(Lang::get('core.m_groups')); ?></a></li>
+                <li <?php if($active=='menu' ): ?> class="active" <?php endif; ?>><a href="<?php echo e(URL::to('core/menu')); ?>"><i class="fa fa-bars fa-fw fa-2x"></i> <?php echo e(Lang::get('core.m_menu')); ?></a></li>
+                <li <?php if($active=='blast' ): ?> class="active" <?php endif; ?>><a href="<?php echo e(URL::to('core/users/blast')); ?>"><i class="fa fa-at fa-fw fa-2x"></i> <?php echo e(Lang::get('core.m_blastemail')); ?></a></li>
+                <li <?php if($active=='email' ): ?> class="active" <?php endif; ?>><a href="<?php echo e(URL::to('core/config/email')); ?>"><i class="fa fa-envelope fa-fw fa-2x"></i> <?php echo e(Lang::get('core.t_emailtemplate')); ?></a></li>
+                <li <?php if($active=='translation' ): ?> class="active" <?php endif; ?>><a href="<?php echo e(URL::to('core/config/translation')); ?>"><i class="fa fa-language fa-fw fa-2x"></i> <?php echo e(Lang::get('core.tab_translation')); ?></a></li>
+                <li <?php if($active=='userlogs' ): ?> class="active" <?php endif; ?>><a href="<?php echo e(URL::to('log')); ?>"><i class="fa fa-code fa-fw fa-2x"></i> <?php echo e(Lang::get('core.m_logs')); ?></a></li>
+                <li <?php if($active=='log' ): ?> class="active" <?php endif; ?>><a href="<?php echo e(URL::to('core/config/clearlog')); ?>" class="clearCache"><i class="fa fa-refresh fa-fw fa-2x"></i> <?php echo e(Lang::get('core.m_clearcache')); ?></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+	<script>
+		jQuery('#sidebar').theiaStickySidebar({
+			additionalMarginTop: 70
+		});
+	</script>

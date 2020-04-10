@@ -1,0 +1,83 @@
+<?php /**/ $menus = SiteHelpers::menus('top') /**/ ?>	
+			<?php foreach($menus as $menu): ?>
+		      <?php if($menu['module'] =='separator'): ?>
+		      <?php else: ?>
+				<li class="nav-item <?php if(count($menu['childs'])> 0 ): ?> dropdown active <?php endif; ?>"><!-- HOME -->
+				 	<a 
+					<?php if($menu['menu_type'] =='external'): ?>
+						class="nav-link" href="<?php echo e(URL::to($menu['url'])); ?>" 
+					<?php else: ?>
+						class="nav-link" href="<?php echo e(URL::to($menu['module'])); ?>" 
+					<?php endif; ?>
+				 
+					 <?php if(count($menu['childs']) > 0 ): ?> class="nav-link dropdown-toggle" id="<?php echo e($menu['menu_name']); ?>-drop" data-toggle="dropdown" data-hover="dropdown" <?php endif; ?>>
+				 		<i class="<?php echo e($menu['menu_icons']); ?>"></i> 
+						
+						<?php if(CNF_MULTILANG ==1 && isset($menu['menu_lang']['title'][Session::get('lang')]) && $menu['menu_lang']['title'][Session::get('lang')]!=''): ?>
+							<?php echo e($menu['menu_lang']['title'][Session::get('lang')]); ?>
+
+						<?php else: ?>
+							<?php echo e($menu['menu_name']); ?>
+
+						<?php endif; ?>	
+					</a> 
+					<?php if(count($menu['childs']) > 0): ?>
+                    <div class="dropdown-menu">
+							<?php foreach($menu['childs'] as $menu2): ?>
+                           <?php if(count($menu2['childs']) > 0): ?> <div class="dropdown dropdown-submenu"> <?php endif; ?>
+
+							 	<?php if($menu2['module'] =='separator'): ?>
+						      	<?php else: ?>
+									 	<a class="dropdown-item" <?php if(count($menu2['childs']) > 0): ?>
+id="<?php echo e($menu2['menu_name']); ?>-drop" data-toggle="dropdown" data-hover="dropdown" data-close-others="false" <?php endif; ?>
+											<?php if($menu2['menu_type'] =='external'): ?>
+												href="<?php echo e(URL::to($menu2['url'])); ?>" 
+											<?php else: ?>
+												href="<?php echo e(URL::to($menu2['module'])); ?>" 
+											<?php endif; ?>
+														
+										>
+											<i class="<?php echo e($menu2['menu_icons']); ?>"></i> 
+												<?php if(CNF_MULTILANG ==1 && isset($menu2['menu_lang']['title'][Session::get('lang')])): ?>
+													<?php echo e($menu2['menu_lang']['title'][Session::get('lang')]); ?>
+
+												<?php else: ?>
+													<?php echo e($menu2['menu_name']); ?>
+
+												<?php endif; ?>
+											
+										</a> 
+										<?php if(count($menu2['childs']) > 0): ?>
+                                        <div class="dropdown-menu" role="menu" aria-labelledby="<?php echo e($menu2['menu_name']); ?>-drop"> 
+											<?php foreach($menu2['childs'] as $menu3): ?>
+													<a 
+														<?php if($menu3['menu_type'] =='external'): ?>
+															href="<?php echo e(URL::to($menu3['url'])); ?>" 
+														<?php else: ?>
+															href="<?php echo e(URL::to($menu3['module'])); ?>" 
+														<?php endif; ?>										
+													class="dropdown-item"
+													>
+														<?php if(CNF_MULTILANG ==1 && isset($menu3['menu_lang']['title'][Session::get('lang')])): ?>
+															<?php echo e($menu3['menu_lang']['title'][Session::get('lang')]); ?>
+
+														<?php else: ?>
+															<?php echo e($menu3['menu_name']); ?>
+
+														<?php endif; ?>
+												</a>
+											<?php endforeach; ?>
+                                        </div>
+										<?php endif; ?>							
+										
+									<?php endif; ?>	
+                                						<?php if(count($menu2['childs']) > 0): ?></div><?php endif; ?>
+
+							<?php endforeach; ?>
+				    </div>
+					<?php endif; ?>
+
+				</li>
+				<?php endif; ?>	
+			<?php endforeach; ?>									
+	
