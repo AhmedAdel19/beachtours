@@ -1,6 +1,6 @@
 <?php
 	$content = $title;
-	$content .= '<table border="1">';
+	$content .= '<table style="width: auto" border="1">';
 	$content .= '<tr>';
 	foreach($fields as $f )
 	{

@@ -4,34 +4,37 @@ class MmbHelpers {
 
   public static function get_zip_content($name , $zip ) {  
       
-    $contents = '';  
-      
+    $contents = '';
+
     if( file_exists( $zip )){  
-      
-      $fp = fopen('zip://' . $zip . '#'. $name , 'r');  
+
+      $fp = fopen('zip://' . $zip . '#'. $name , 'r');
       if (!$fp) {  
           SiteHelpers::alert("error","cannot open zip file: {$zip}n");  
       }  
       while (!feof($fp)) {  
           $contents .= fread($fp, 2);  
-      } 
-      
+      }
+      fclose($fp);
     } else {  
-      SiteHelpers::alert("error","cannot find zip file: {$zip}n");  
+      return SiteHelpers::alert("error","cannot find zip file: {$zip}n");
     }  
         
-    fclose($fp); 
-    return $contents;  
+    return $contents;
       
   }    
 
   public static function cf_unpackage($zip_path) { 
-     
+      if ($zip_path== "") return false;
+
     $ain = unserialize( base64_decode( self::get_zip_content ( '.ain' , $zip_path )));  
      
     $tmp_name  = md5( date('YmdHis') ); 
      
-    $zip = new ZipArchive; 
+    $zip = new ZipArchive;
+    if ($zip_path == ""){
+        return false;
+    }
     $zipres = $zip->open( $zip_path ); 
     if( $zipres === TRUE){ 
        

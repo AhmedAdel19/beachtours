@@ -56,6 +56,7 @@
                     Route::controller('support', 'SupportController');
                     Route::controller('faqs', 'FaqsController');
                     Route::controller('commentscheck', 'CommentscheckController');
+                    Route::controller('todo', 'TodoController');
                     Route::controller('travellersfiles', 'TravellersfilesController');
                     Route::controller('visaapplication', 'VisaapplicationController');
                     ?>

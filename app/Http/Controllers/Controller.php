@@ -809,11 +809,7 @@ abstract class Controller extends BaseController {
 
 		} else if($t == 'pdf') {
             $html = view('mmb.module.utility.pdf', $content)->render();
-          //  $defaultOptions = \PDF::getOptions();
-           // $defaultOptions->setDefaultFont('Courier');
-
-
-            return \PDF::load($html)->filename('output.pdf')->download()->setPaper('a4','portrait');
+            return \PDF::load($html,'A2', 'landscape')->filename('output.pdf')->download();
 		} else if($t == 'csv') {
 			return view('mmb.module.utility.csv',$content);
 		} else if ($t == 'print') {

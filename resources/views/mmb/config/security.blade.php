@@ -22,13 +22,15 @@
 						<div class="col-md-6">
 							<div class="checkbox">
 								<input name="cnf_mode" type="checkbox" id="cnf_mode" value="1"
-									   @if(old('cnf_mode') =='production' ) checked @else
-									   @if(defined('CNF_MODE') &&  CNF_MODE =='production') checked @endif
+									   @if(old('cnf_mode') =='1' )
+									   		checked
+									   @else
+									   		@if(old('_token') == null && defined('CNF_MODE') &&  CNF_MODE =='production') checked @endif
 										@endif
 								/>
 								Production
 							</div>
-							<small> If you need to debug mode , please unchecked this option </small>
+							<small> If you need to debug mode , please uncheck this option </small>
 						</div>
 					</div>
 					<div class="form-group">
@@ -37,7 +39,7 @@
 							<label class="checkbox">
 								<input type="checkbox" name="CNF_MAINTENANCE" value="ON"
 									   @if(old('CNF_MAINTENANCE') =='ON' )checked @else
-									   @if(CNF_MAINTENANCE =='ON') checked @endif
+									   @if( old('_token')== null && CNF_MAINTENANCE =='ON') checked @endif
 									   @endif
 									   class="minimal-red"
 								/>
@@ -49,8 +51,10 @@
 						<div class="col-md-6">
 								<label class="checkbox">
 								<input type="checkbox" name="CNF_FRONT" value="false"
-									   @if(old('CNF_FRONT') =='true' )
-									   checked @else @if(CNF_FRONT =='true') checked @endif
+									   @if(old('CNF_FRONT') =='false' )
+									   		checked
+									   @else
+									   		@if(old('_token') == null && CNF_FRONT =='true') checked @endif
 									   @endif
 									   class="minimal-red"  />
 								</label>
@@ -65,7 +69,7 @@
 											@if(old('cnf_theme') ==$t['folder'])
 												selected
 											@else
-												@if(CNF_THEME ==$t['folder']) selected @endif
+												@if(old('_token')== null && CNF_THEME ==$t['folder']) selected @endif
 											@endif
 									>{{  $t['name'] }}</option>
 								@endforeach
@@ -77,7 +81,9 @@
 						<div class="col-md-6">
 								<label class="checkbox">
 								<input type="checkbox" name="CNF_SHOWHELP" value="ON"
-									   @if( ( CNF_SHOWHELP || old('CNF_SHOWHELP') ) =='ON') checked @endif class="minimal-red"  />
+									   @if( ( old('CNF_SHOWHELP') ) =='ON') checked
+									   @else @if(old('_token') == null && CNF_SHOWHELP =='ON') checked @endif
+									   @endif class="minimal-red"  />
 								</label>
 						</div>
 					</div>
@@ -85,7 +91,10 @@
 						<label for="ipt" class=" control-label col-md-4"> {{ Lang::get('core.fr_allowregistration') }} </label>
 						<div class="col-md-6">
 								<label class="checkbox">
-								<input type="checkbox" name="CNF_REGIST" value="true"  @if(old('CNF_REGIST') || CNF_REGIST =='true') checked @endif class="minimal-red"  />
+								<input type="checkbox" name="CNF_REGIST" value="true"
+									   @if(old('CNF_REGIST') == "true") checked
+									   @else @if(old('_token') == null && CNF_REGIST =="true") checked @endif
+									   @endif class="minimal-red"  />
 								</label>
 						</div>
 					</div>
@@ -96,7 +105,13 @@
 								<select class="form-control" name="CNF_GROUP">
 									@foreach($groups as $group)
 									<option value="{{ $group->group_id }}"
-									 @if(old('CNF_GROUP') || CNF_GROUP == $group->group_id ) selected @endif
+									 @if(old('CNF_GROUP')== $group->group_id )
+									 	selected
+									 @else
+										@if(old('_token')== null && CNF_GROUP == $group->group_id )
+											selected
+										@endif
+									 @endif
 									>{{ $group->name }}</option>
 									@endforeach
 								</select>
@@ -107,16 +122,34 @@
 						<label for="ipt" class=" control-label col-md-4">{{ Lang::get('core.fr_registration') }} </label>
 						<div class="col-md-6">
 							<label class="radio">
-							<input type="radio" name="CNF_ACTIVATION" value="auto" @if(old('CNF_ACTIVATION') || CNF_ACTIVATION =='auto') checked @endif class="minimal-red"  />
+							<input type="radio" name="CNF_ACTIVATION" value="auto"
+{{--								   //old('_token') == null &&--}}
+								   @if(old('CNF_ACTIVATION')  =='auto')
+										checked
+								   		@else @if(old('_token') == null && CNF_ACTIVATION == 'auto')@endif
+								   @endif class="minimal-red"  />
 							{{ Lang::get('core.fr_registrationauto') }}
 							</label>
 
 							<label class="radio">
-							<input type="radio" name="CNF_ACTIVATION" value="manual" @if(old('CNF_ACTIVATION') || CNF_ACTIVATION =='manual') checked @endif class="minimal-red"  />
+							<input type="radio" name="CNF_ACTIVATION"
+								   value="manual"
+								   @if(old('CNF_ACTIVATION') )
+								   		checked
+								   @else
+								   		@if(old('_token') == null && CNF_ACTIVATION =='manual') checked @endif
+								   @endif class="minimal-red"  />
 							{{ Lang::get('core.fr_registrationmanual') }}
 							</label>
 							<label class="radio">
-							<input type="radio" name="CNF_ACTIVATION" value="confirmation" @if(old('CNF_ACTIVATION') || CNF_ACTIVATION =='confirmation') checked @endif class="minimal-red"  />
+							<input type="radio" name="CNF_ACTIVATION" value="confirmation"
+{{--								   todo--}}
+								   @if(old('CNF_ACTIVATION') )
+								   		checked
+									@else
+								   		@if( old('_token')== null && CNF_ACTIVATION =='confirmation') checked @endif
+								   @endif
+								   class="minimal-red"  />
 							{{ Lang::get('core.fr_registrationemail') }}
 							</label>
 						</div>
@@ -125,7 +158,12 @@
 						<label for="ipt" class=" control-label col-md-4"> {{ Lang::get('core.captcha') }} </label>
 						<div class="col-md-6">
 							<label class="checkbox">
-							<input type="checkbox" name="CNF_RECAPTCHA" value="false" @if(old('CNF_RECAPTCHA') || CNF_RECAPTCHA =='true') checked @endif class="minimal-red"  />
+							<input type="checkbox" name="CNF_RECAPTCHA" value="false"
+								   @if(old('CNF_RECAPTCHA') == "false")
+								   checked
+								   @else
+								   @if(old("_token") == null && CNF_RECAPTCHA =='true') checked @endif
+								   @endif class="minimal-red"  />
 							</label>
 						</div>
 					</div>
@@ -135,7 +173,11 @@
 							<select class="select2" name="cnf_lang">
 							@foreach(SiteHelpers::langOption() as $lang)
 								<option value="{{  $lang['folder'] }}"
-								@if(old('CNF_LANG') || CNF_LANG ==$lang['folder']) selected @endif
+										@if(old('cnf_lang') == $lang['folder'])
+											selected
+										@else
+											@if( old('_token')== null && CNF_LANG ==$lang['folder']) selected @endif
+										@endif
 								>{{  $lang['name'] }}</option>
 							@endforeach
 							</select>
@@ -146,7 +188,12 @@
 						<div class="col-md-6">
 							<div class="checkbox">
 								<input name="cnf_multilang" type="checkbox" id="cnf_multilang" value="1" class="minimal-red"
-								@if(old('CNF_MULTILANG') || CNF_MULTILANG ==1) checked @endif />  {{ Lang::get('core.fr_enable') }}
+									   	@if(old('cnf_multilang') ==1)
+											checked
+									    @else
+									   		@if( old('_token')== null && CNF_MULTILANG == 1)checked @endif
+										@endif
+								/>  {{ Lang::get('core.fr_enable') }}
 							</div>
 						 </div>
 					</div>
@@ -173,7 +220,7 @@
 										@if(old('cnf_date') ==$key)
 												selected
 											@else
-												@if(defined('CNF_DATE') && CNF_DATE ==$key) selected @endif
+												@if(old('_token')== null && defined('CNF_DATE') && CNF_DATE ==$key) selected @endif
 										@endif
 								>{{  $val }}</option>
 							@endforeach
@@ -188,14 +235,17 @@
 								@if(old('CNF_MAIL') =='phpmail')
 									checked
 								@else
-									@if(defined('CNF_MAIL') && CNF_MAIL =='phpmail') checked @endif
+									@if( old('_token')== null && defined('CNF_MAIL') && CNF_MAIL =='phpmail') checked @endif
 								@endif
 								/>
 								PHP MAIL System
 							</label>
 							<label class="radio">
 							<input type="radio" name="CNF_MAIL" value="swift" class="minimal-red"
-							   @if(old('CNF_MAIL') =='swift') checked @else @if(defined('CNF_MAIL') && CNF_MAIL =='swift') checked @endif @endif
+							    @if(old('CNF_MAIL') =='swift')
+							   		checked
+								    @else @if( old('_token')== null && defined('CNF_MAIL') && CNF_MAIL =='swift') checked @endif
+								@endif
 							/>
 								SWIFT Mailer
 								<a href="javascript:void(0)" onclick="MmbModal('{{ url('core/template/swift') }}','SwiftMailer Settings')">
@@ -208,7 +258,8 @@
 						<label for="ipt" class=" control-label col-md-4">{{ Lang::get('core.metakey') }} </label>
 						<div class="col-md-6">
 							<textarea class="form-control input-sm"
-									  placeholder="{{ Lang::get('core.keywords') }}" name="cnf_metakey">{{ old('cnf_metakey')? old('cnf_metakey'):CNF_METAKEY }}</textarea>
+									  placeholder="{{ Lang::get('core.keywords') }}" name="cnf_metakey">
+								{{ old('cnf_metakey')? old('cnf_metakey'):CNF_METAKEY }}</textarea>
 						</div>
 					  </div>
 
@@ -246,13 +297,9 @@
 			<label for="ipt" class=" control-label col-md-4">
 				{{ Lang::get('core.fr_restrictip') }}
 				<p>
-					<small>
-						<i>
-							{{ Lang::get('core.fr_restrictipsmall') }}
-							<br />
-							{{ Lang::get('core.fr_restrictipexam') }} : <code> 192.116.134.21 , 194.111.606.21 </code>
-						</i>
-					</small>
+					<small><i>{{ Lang::get('core.fr_restrictipsmall') }}  <br />
+								{{ Lang::get('core.fr_restrictipexam') }} : <code> 192.116.134.21 , 194.111.606.21 </code>
+							</i></small>
 				</p>
 			</label>
 			<div class="col-md-6">
@@ -262,15 +309,17 @@
 		  		  
         <div class="form-group">
 			<label for="ipt" class=" control-label col-md-4"> {{ Lang::get('core.fr_allowip') }}	
-				<p><small><i>
+							<p><small><i>
 
-					{{ Lang::get('core.fr_allowipsmall') }}  <br />
-					{{ Lang::get('core.fr_allowipexam') }} : <code> 192.116.134.21 , 194.111.606.21 </code>
-				</i></small></p>
-			</label>
+								{{ Lang::get('core.fr_allowipsmall') }}  <br />
+								{{ Lang::get('core.fr_allowipexam') }} : <code> 192.116.134.21 , 194.111.606.21 </code>
+							</i></small></p></label>
 			<div class="col-md-6">
-				<textarea rows="3" class="form-control" name="CNF_ALLOWIP">{{old('CNF_ALLOWIP') ? old('CNF_ALLOWIP'):CNF_ALLOWIP }}</textarea>
-				<p> {{ Lang::get('core.fr_ipnote') }} </p>
+							<textarea rows="3"
+									  class="form-control" name="CNF_ALLOWIP">{{old('CNF_ALLOWIP') ? old('CNF_ALLOWIP'):
+CNF_ALLOWIP }}</textarea>
+    						<p> {{ Lang::get('core.fr_ipnote') }} </p>
+
 			</div>
 		</div>
         <div class="form-group">
