@@ -819,13 +819,13 @@ abstract class Controller extends BaseController {
             if (count($content["fields"]) <= 6){
                 $a = "A4";
             }
-            //dd($content["fields"]);
+          //  dd($content["fields"]);
           //  dd(count($content["fields"]));
             if (count($content["fields"]) <= 3 ){
                 $a = "A5";
             }
             $html = view('mmb.module.utility.pdf', $content)->render();
-            ///return ($html);
+            //return ($html);
             return \PDF::load($html,$a, 'landscape')->filename('output.pdf')->download();
 		} else if($t == 'csv') {
 			return view('mmb.module.utility.csv',$content);

@@ -2,7 +2,13 @@
     $width3 = "width:1660px";
     $width1 = "width:114px;";
     $width2 = "width:114px;";
+    function downloadable($var)
+    {
+        return($var['download'] & 1);
+    }
+//dd(count($fields));
 
+    $fields = array_filter($fields,"downloadable");
     if(count($fields) <= 11){
         $width3 = "width:1860px";
         $width1="width:145px;";
@@ -10,9 +16,6 @@
     }
     if(count($fields) <= 13){
         $width3 = "width:2900px";
-       // $width3 = "width:1660px";
-       // $width1="width:145px;";
-        //$width2="width:145px;";
     }
     if (count($fields)   == 5){
         $width3 = "width:2000px";
@@ -26,7 +29,7 @@
         $width1="width:200px;";
         $width2="width:200px;";
     }
-    if(count($fields)  >= 24){
+    if(count($fields)  >= 23){
         $width3 = "width:10px;";
         $width1 = "width:90px;";
         $width2="width:90px;";
@@ -37,30 +40,49 @@
         $width1 = "width:112px;";
         $width2="width:111px;";
     }
+    if(count($fields)  == 20){
+        //tours
+        $width3 = "width:90px;";
+        $width1="width:70px;";
+        $width2="width:70px;";
+    }
     if(count($fields) == 18 ){
-        $width3 = "width:500px;";
+        // TOUR DATES
+        $width3 = "width:900px;";
+        $width1="width:90px;";
+        $width2="width:90px;";
+    }
+    if(count($fields) == 17 ){
+        $width3 = "width:10px;";
         $width1="width:82px;";
         $width2="width:82px;";
     }
+//    dd(count($fields));
     if(count($fields) == 16 ){
-        $width3 = "width:400px;";
-        $width1="width:102px;";
-        $width2="width:102px;";
+        $width3 = "width:10px;";
+        $width1="width:92px;";
+        $width2="width:92px;";
     }
+if(count($fields) == 14){
+    $width3 = "width:10px;";
+    $width1="width:102px;";
+    $width2="width:102px;";
+}
     if ($title == "Hotel"){
         $width1 = "width:115px;";
         $width2="width:115px;";
     }
-    if(count($fields) <= 3){
+    if(count($fields) <= 2){
         $width1="width:10px;";
         $width2="width:10px;";
         $width3 = "width:1460px;";
     }
-    if(count($fields) == 4){
+    if(count($fields) == 3){
         $width1="width:10px;";
         $width2="width:10px;";
         $width3 = "width:2060px;";
     }
+ //   dd(count($fields));
 ?>
 <div style="<?php echo $width3 ?> !important; ;">
 <?php
