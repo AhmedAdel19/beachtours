@@ -1,6 +1,6 @@
 <?php
 	$content = $title;
-	$content .= '<table style="width: auto" border="1">';
+	$content .= '<table style="" border="1">';
 	$content .= '<tr>';
 	foreach($fields as $f )
 	{
@@ -32,12 +32,10 @@
 		$content .= '</tr>';
 	}
 	$content .= '</table>';
-	
-
-$word_xmlns = "xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'&#8221";;
+	$word_xmlns = "xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'&#8221";;
 	$word_xml_settings = "<xml><w:WordDocument><w:View>Print</w:View><w:Zoom>100</w:Zoom></w:WordDocument></xml>";
 	$word_landscape_style = "@page {size:8.5in 11.0in; margin:0.5in 0.31in 0.42in 0.25in;} div.Section1{page:Section1;}";
-	$word_landscape_div_start = "<div class='Section1'>";
+	$word_landscape_div_start = "<div style='width:10px !important;'class='Section1'>";
 	$word_landscape_div_end = "</div>";
 	$content = '
 	<html '.$word_xmlns.'>
@@ -47,13 +45,9 @@ $word_xmlns = "xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:sc
 	<body>'.$word_landscape_div_start.$content.$word_landscape_div_end.'</body>
 	</html>
 	';
-	
-
-
-	
 	@header('Content-Type: application/msword');
 	@header('Content-Length: '.strlen($content));
 	@header('Content-disposition: inline; filename="'.$title.' '.date("d/m/Y").'.doc"');
 	echo $content;
-		exit;
+	exit;
 ?>

@@ -21,16 +21,16 @@ abstract class Controller extends BaseController {
 
         $driver             = config('database.default');
         $database           = config('database.connections');
-       
+
         $this->db           = $database[$driver]['database'];
         $this->dbuser       = $database[$driver]['username'];
         $this->dbpass       = $database[$driver]['password'];
-        $this->dbhost       = $database[$driver]['host']; 
+        $this->dbhost       = $database[$driver]['host'];
 
 
         if(\Auth::check() == true)
         {
-        	
+
         	if(!\Session::get('gid'))
         	{
 
@@ -38,22 +38,22 @@ abstract class Controller extends BaseController {
 				\Session::put('gid', \Auth::user()->group_id);
 				\Session::put('eid', \Auth::user()->email);
 				\Session::put('ll' , \Auth::user()->last_login);
-				\Session::put('fid', \Auth::user()->first_name.' '. \Auth::user()->last_name);  
-				\Session::put('themes', 'mmb-light-blue');     		
+				\Session::put('fid', \Auth::user()->first_name.' '. \Auth::user()->last_name);
+				\Session::put('themes', 'mmb-light-blue');
         	}
-        } 
+        }
 
         if(!\Session::get('themes'))
         {
-        	\Session::put('themes', 'mmb');	
+        	\Session::put('themes', 'mmb');
         }
-        
+
          \App::setLocale(CNF_LANG);
 		 if (defined('CNF_MULTILANG') && CNF_MULTILANG == '1') {
 
 		    $lang = (\Session::get('lang') != "" ? \Session::get('lang') : CNF_LANG);
 		    \App::setLocale($lang);
-		}    
+		}
 		$data = array(
 				'last_activity'=> strtotime(Carbon::now())
 			);
@@ -76,58 +76,58 @@ abstract class Controller extends BaseController {
 			$limit = (!is_null($request->input('limit')) ? $request->input('limit') : null);
 			$rows = $this->model->getComboselect($param,$limit,$parent);
 			$items = array();
-		
+
 			$fields = explode("|",$param[2]);
-			
-			foreach($rows as $row) 
+
+			foreach($rows as $row)
 			{
 				$value = "";
 				foreach($fields as $item=>$val)
 				{
 					if($val != "") $value .= $row->{$val}." ";
 				}
-				$items[] = array($row->{$param['1']} , $value); 	
-	
+				$items[] = array($row->{$param['1']} , $value);
+
 			}
-			
-			return json_encode($items); 	
+
+			return json_encode($items);
 		} else {
 			return json_encode(array('OMG'=>" Ops .. Cant access the page !"));
-		}	
+		}
 	}
 
 	public function getCombotable( Request $request)
 	{
 		if(Request::ajax() == true && Auth::check() == true)
-		{				
+		{
 			$rows = $this->model->getTableList($this->db);
 			$items = array();
-			foreach($rows as $row) $items[] = array($row , $row); 	
-			return json_encode($items); 	
+			foreach($rows as $row) $items[] = array($row , $row);
+			return json_encode($items);
 		} else {
 			return json_encode(array('OMG'=>"  Ops .. Cant access the page !"));
-		}				
-	}		
-	
+		}
+	}
+
 	public function getCombotablefield( Request $request)
 	{
-		if($request->input('table') =='') return json_encode(array());	
+		if($request->input('table') =='') return json_encode(array());
 		if(Request::ajax() == true && Auth::check() == true)
-		{	
+		{
 
-				
+
 			$items = array();
 			$table = $request->input('table');
 			if($table !='')
 			{
-				$rows = $this->model->getTableField($request->input('table'));			
-				foreach($rows as $row) 
-					$items[] = array($row , $row); 				 	
-			} 
-			return json_encode($items);	
+				$rows = $this->model->getTableField($request->input('table'));
+				foreach($rows as $row)
+					$items[] = array($row , $row);
+			}
+			return json_encode($items);
 		} else {
 			return json_encode(array('OMG'=>"  Ops .. Cant access the page !"));
-		}					
+		}
 	}
 
 	function postMultisearch( Request $request)
@@ -137,10 +137,10 @@ abstract class Controller extends BaseController {
 		foreach($post as $item=>$val):
 			if($_POST[$item] !='' and $item !='_token' and $item !='md' && $item !='id'):
 				$items .= $item.':'.trim($val).'|';
-			endif;	
-		
+			endif;
+
 		endforeach;
-		
+
 		return Redirect::to($this->module.'?search='.substr($items,0,strlen($items)-1).'&md='.Input::get('md'));
 	}
 
@@ -149,7 +149,7 @@ abstract class Controller extends BaseController {
 
 			$keywords = ''; $fields = '';	$param ='';
 			$allowsearch = $this->info['config']['forms'];
-			foreach($allowsearch as $as) $arr[$as['field']] = $as ;		
+			foreach($allowsearch as $as) $arr[$as['field']] = $as ;
 			$mapping = '';
 			if($_GET['search'] !='')
 			{
@@ -162,15 +162,15 @@ abstract class Controller extends BaseController {
 						if(in_array($keys[0],array_keys($arr))):
 							if($arr[$keys[0]]['type'] == 'select' || $arr[$keys[0]]['type'] == 'radio' )
 							{
-								$param .= " AND ".$arr[$keys[0]]['alias'].".".$keys[0]." ".self::searchOperation($keys[1])." '".$keys[2]."' ";	
+								$param .= " AND ".$arr[$keys[0]]['alias'].".".$keys[0]." ".self::searchOperation($keys[1])." '".$keys[2]."' ";
 								$mapping .= $keys[0].' '.self::searchOperation($keys[1]).' '.$keys[2]. '<br />';
 
 							} else {
 								$operate = self::searchOperation($keys[1]);
 								if($operate == 'like')
 								{
-									$param .= " AND ".$arr[$keys[0]]['alias'].".".$keys[0]." LIKE '%".$keys[2]."%%' ";	
-									$mapping .= $keys[0].' LIKE '.$keys[2]. '<br />';	
+									$param .= " AND ".$arr[$keys[0]]['alias'].".".$keys[0]." LIKE '%".$keys[2]."%%' ";
+									$mapping .= $keys[0].' LIKE '.$keys[2]. '<br />';
 								} else if( $operate =='is_null') {
 									$param .= " AND ".$arr[$keys[0]]['alias'].".".$keys[0]." IS NULL ";
 									$mapping .= $keys[0].' IS NULL <br />';
@@ -180,16 +180,16 @@ abstract class Controller extends BaseController {
 									$mapping .= $keys[0].' IS NOT NULL <br />';
 
 								} else if( $operate =='between') {
-									$param .= " AND (".$arr[$keys[0]]['alias'].".".$keys[0]." BETWEEN '".$keys[2]."' AND '".$keys[3]."' ) ";								
+									$param .= " AND (".$arr[$keys[0]]['alias'].".".$keys[0]." BETWEEN '".$keys[2]."' AND '".$keys[3]."' ) ";
 									$mapping .= $keys[0].' BETWEEN '.$keys[2]. ' - '. $keys[3] .'<br />';
 								} else {
 									$param .= " AND ".$arr[$keys[0]]['alias'].".".$keys[0]." ".self::searchOperation($keys[1])." '".$keys[2]."' ";
-									$mapping .= $keys[0].' '.self::searchOperation($keys[1]).' '.$keys[2]. '<br />';	
-								}												
-							}						
-						endif;	
+									$mapping .= $keys[0].' '.self::searchOperation($keys[1]).' '.$keys[2]. '<br />';
+								}
+							}
+						endif;
 					}
-				} 
+				}
 			}
 
 		if($map == true)
@@ -202,30 +202,30 @@ abstract class Controller extends BaseController {
 					 <b class="text-danger"> Search Result </b> :  <br /> '.$mapping.'
 					</div>
 					'
-				);			
+				);
 
 		} else {
 			return $param;
-		}		
-		
-	
+		}
+
+
 	}
 
 
 	function onSearch( $params )
 	{
-		// Used for extracting URL GET search 
+		// Used for extracting URL GET search
 		$psearch = explode('|',$params);
 		$currentSearch = array();
 		foreach($psearch as $ps)
 		{
 			$tosearch = explode(':',$ps);
 			if(count($tosearch) >=2)
-			$currentSearch[$tosearch[0]] = $tosearch[2]; 
+			$currentSearch[$tosearch[0]] = $tosearch[2];
 		}
-		return $currentSearch;		
+		return $currentSearch;
 	}
-	
+
 	function searchOperation( $operate)
 	{
 		$val = '';
@@ -238,7 +238,7 @@ abstract class Controller extends BaseController {
 				break;
 			case 'smaller_equal':
 				$val = '<=' ;
-				break;				
+				break;
 			case 'smaller':
 				$val = '<' ;
 				break;
@@ -247,26 +247,26 @@ abstract class Controller extends BaseController {
 				break;
 			case 'not_null':
 				$val = 'not_null' ;
-				break;								
+				break;
 
 			case 'is_null':
 				$val = 'is_null' ;
-				break;	
+				break;
 
 			case 'like':
 				$val = 'like' ;
-				break;	
+				break;
 
 			case 'between':
 				$val = 'between' ;
-				break;					
+				break;
 
 			default:
 				$val = '=' ;
 				break;
 		}
 		return $val;
-	}		
+	}
 
 	function inputLogs(Request $request, $note = NULL)
 	{
@@ -278,14 +278,14 @@ abstract class Controller extends BaseController {
 			'note'		=> $note
 		);
 		\DB::table( 'tb_logs')->insert($data);		;
-	
+
 	}
 
 	function validateForm( $forms = array() )
 	{
 		if(count($forms) <= 0)
 			$forms = $this->info['config']['forms'];
-		
+
 		$rules = array();
 		foreach($forms as $form)
 		{
@@ -295,20 +295,20 @@ abstract class Controller extends BaseController {
 			} elseif ($form['required'] == 'alpa'){
 				$rules[$form['field']] = 'required|alpa';
 			} elseif ($form['required'] == 'alpa_num'){
-				$rules[$form['field']] = 'required|alpa_num';					
+				$rules[$form['field']] = 'required|alpa_num';
 			} elseif ($form['required'] == 'alpa_dash'){
-				$rules[$form['field']]='required|alpa_dash';																
+				$rules[$form['field']]='required|alpa_dash';
 			} elseif ($form['required'] == 'email'){
 				$rules[$form['field']] ='required|email';
 			} elseif ($form['required'] == 'numeric'){
-				$rules[$form['field']] = 'required|numeric';		
+				$rules[$form['field']] = 'required|numeric';
 			} elseif ($form['required'] == 'date'){
 				$rules[$form['field']]='required|date';
 			} else if($form['required'] == 'url'){
 				$rules[$form['field']] = 'required|active_url';
-				
+
 			} else {
-				
+
 				if( $form['type'] =='file')
 				{
 					if($form['required'] =='required')
@@ -319,16 +319,16 @@ abstract class Controller extends BaseController {
 							$validation = '|mimes:jpg,jpeg,png,gif,bmp';
 
 						} else {
-							$validation = '|mimes:jpg,jpeg,png,gif,bmp,pdf,zip,csv,xls,doc,docx,xlsx';						
+							$validation = '|mimes:jpg,jpeg,png,gif,bmp,pdf,zip,csv,xls,doc,docx,xlsx';
 						}
-						
+
                         if($form['option']['image_multiple'] != '1')
 						{
-							// IF SINGLE UPLOAD FILE OR IMAGE 	
+							// IF SINGLE UPLOAD FILE OR IMAGE
 							$rules[$form['field']] = $validation;
 
 						}  else {
-							// IF MULTIPLE UPLOAD FILE OR IMAGE 	
+							// IF MULTIPLE UPLOAD FILE OR IMAGE
 							$FilesArray = [];
 							if(count($_FILES[$form['field']]) >=1 )
 							{
@@ -342,23 +342,23 @@ abstract class Controller extends BaseController {
 						}
 
 					} else {
-                        
+
 				        $validation = '';
 						if($form['option']['upload_type'] =='image')
 						{
 							$validation = '|mimes:jpg,jpeg,png,gif,bmp';
 
 						} else {
-							$validation = '|mimes:jpg,jpeg,png,gif,bmp,pdf,zip,csv,xls,doc,docx,xlsx';						
+							$validation = '|mimes:jpg,jpeg,png,gif,bmp,pdf,zip,csv,xls,doc,docx,xlsx';
 						}
 
 						if($form['option']['image_multiple'] != '1')
 						{
-							// IF SINGLE UPLOAD FILE OR IMAGE 	
+							// IF SINGLE UPLOAD FILE OR IMAGE
 							$rules[$form['field']] = $validation;
 
 						}  else {
-							// IF MULTIPLE UPLOAD FILE OR IMAGE 	
+							// IF MULTIPLE UPLOAD FILE OR IMAGE
 							$FilesArray = [];
 							if(count($_FILES[$form['field']]) >=1 )
 							{
@@ -370,13 +370,13 @@ abstract class Controller extends BaseController {
 							}
 
 						}
-					} 
+					}
 				}
-			
-			}										
-		}	
+
+			}
+		}
 		return $rules ;
-	}	
+	}
 
 	function validateListError( $rules )
     {
@@ -386,23 +386,23 @@ abstract class Controller extends BaseController {
         {
             $errMsg .= '<li>'.$key.' : '.$val[0].'</li>';
         }
-        $errMsg .= '</li>'; 
+        $errMsg .= '</li>';
         return $errMsg;
     }
 
 	function validatePost(  $table )
-	{	
-		$request = new Request;	
+	{
+		$request = new Request;
 		$str = $this->info['config']['forms'];
 		$data = array();
 		foreach($str as $f){
 			$field = $f['field'];
 			// Update for V5.1.5 issue on Autofilled createOn and updatedOn fields
 			if($field == 'createdOn') $data['createdOn'] = date('Y-m-d H:i:s');
-            if($field == 'updatedOn') $data['updatedOn'] = date('Y-m-d H:i:s');			
-			if($f['view'] ==1) 
+            if($field == 'updatedOn') $data['updatedOn'] = date('Y-m-d H:i:s');
+			if($f['view'] ==1)
 			{
-				
+
 
 				if($f['type'] =='textarea_editor' || $f['type'] =='textarea')
 				{
@@ -410,22 +410,22 @@ abstract class Controller extends BaseController {
 					 $data[$field] = $content;
 				} else {
 
-	
+
 					if(isset($_POST[$field]))
 					{
-						$data[$field] = $_POST[$field];				
+						$data[$field] = $_POST[$field];
 					}
-					// if post is file or image		
+					// if post is file or image
 
 
 					if($f['type'] =='file')
-					{	
-						$files ='';	
+					{
+						$files ='';
 						if($f['option']['upload_type'] =='file')
 						{
 
 							if(isset($f['option']['image_multiple']) && $f['option']['image_multiple'] ==1)
-							{								
+							{
 								if(isset($_POST['curr'.$field]))
 								{
 									$curr =  '';
@@ -433,12 +433,12 @@ abstract class Controller extends BaseController {
 									{
 										$files .= $_POST['curr'.$field][$i].',';
 									}
-								}	
+								}
 
 								if(!is_null(Input::file($field)))
 								{
 
-									$destinationPath = '.'. $f['option']['path_to_upload']; 	
+									$destinationPath = '.'. $f['option']['path_to_upload'];
 									foreach($_FILES[$field]['tmp_name'] as $key => $tmp_name ){
 									 	$file_name = $_FILES[$field]['name'][$key];
 										$file_tmp =$_FILES[$field]['tmp_name'][$key];
@@ -454,23 +454,23 @@ abstract class Controller extends BaseController {
 											move_uploaded_file($file_tmp,$destinationPath.'/'.$newfilename);
 
 										}
-										
+
 									}
-									
-									if($files !='')	$files = substr($files,0,strlen($files)-1);	
+
+									if($files !='')	$files = substr($files,0,strlen($files)-1);
 									$data[$field] = $files;
 								} else {
-									unset($data[$field]);	
-								}	
-																					
+									unset($data[$field]);
+								}
+
 
 							} else {
-							
-								if(!is_null(Input::file($field)))
-								{								
 
-									$file = Input::file($field); 
-								 	$destinationPath = '.'. $f['option']['path_to_upload']; 
+								if(!is_null(Input::file($field)))
+								{
+
+									$file = Input::file($field);
+								 	$destinationPath = '.'. $f['option']['path_to_upload'];
 									$filename = $file->getClientOriginalName();
 									$extension =$file->getClientOriginalExtension(); //if you need extension of the file
 									$rand = rand(100,1000000);
@@ -479,8 +479,8 @@ abstract class Controller extends BaseController {
 									if( $uploadSuccess ) {
 									   $data[$field] = $newfilename;
 									}
-								}	 
-							}	
+								}
+							}
 
 						} else {
 
@@ -496,11 +496,11 @@ abstract class Controller extends BaseController {
 									}
 								}
 
-								$destinationPath = '.'. $f['option']['path_to_upload']; 
+								$destinationPath = '.'. $f['option']['path_to_upload'];
 								if(count(Input::file($f['field'])) >=1 )
 								{
-									
-									$destinationPath = '.'. $f['option']['path_to_upload']; 
+
+									$destinationPath = '.'. $f['option']['path_to_upload'];
 									foreach($_FILES[$field]['tmp_name'] as $key => $tmp_name ){
 									 	$file_name = $_FILES[$field]['name'][$key];
 										$file_tmp =$_FILES[$field]['tmp_name'][$key];
@@ -525,24 +525,24 @@ abstract class Controller extends BaseController {
 													$f['option']['resize_height']	= $f['option']['resize_width'];
 												}
 											 	$orgFile = $destinationPath.'/'.$newfilename;
-												 \SiteHelpers::cropImage($f['option']['resize_width'] , $f['option']['resize_height'] , $orgFile ,  $extension,	 $orgFile)	;						 
+												 \SiteHelpers::cropImage($f['option']['resize_width'] , $f['option']['resize_height'] , $orgFile ,  $extension,	 $orgFile)	;
 											 }
-										}										
+										}
 									}
 
-																	
-								} 
-								if($files !='')	$files = substr($files,0,strlen($files)-1);	
-									$data[$field] = $files;	
 
-								
+								}
+								if($files !='')	$files = substr($files,0,strlen($files)-1);
+									$data[$field] = $files;
+
+
 
 							} else {
 
 								if(!is_null(Input::file($field)))
 								{
-									$file = Input::file($field); 
-								 	$destinationPath = '.'. $f['option']['path_to_upload']; 
+									$file = Input::file($field);
+								 	$destinationPath = '.'. $f['option']['path_to_upload'];
 									$filename = $file->getClientOriginalName();
 									$extension =$file->getClientOriginalExtension(); //if you need extension of the file
 									$rand = rand(100,1000000);
@@ -559,56 +559,56 @@ abstract class Controller extends BaseController {
 											$f['option']['resize_height']	= $f['option']['resize_width'];
 										}
 									 	$orgFile = $destinationPath.'/'.$newfilename;
-										 \SiteHelpers::cropImage($f['option']['resize_width'] , $f['option']['resize_height'] , $orgFile ,  $extension,	 $orgFile)	;						 
+										 \SiteHelpers::cropImage($f['option']['resize_width'] , $f['option']['resize_height'] , $orgFile ,  $extension,	 $orgFile)	;
 									 }
-									 
+
 									if( $uploadSuccess ) {
 									   $data[$field] = $newfilename;
 									}
-								}	 
-							}		
+								}
+							}
 
-						}						
-					}	
+						}
+					}
 
-					// Handle Checkbox input 
+					// Handle Checkbox input
 					if($f['type'] =='checkbox')
 					{
 						if(isset($_POST[$field]))
 						{
 							$data[$field] = implode(",",$_POST[$field]);
 						} else {
-							$data[$field] = '0';	
+							$data[$field] = '0';
 						}
 					}
-					// if post is date						
+					// if post is date
 					if($f['type'] =='date')
 					{
 						$data[$field] = date("Y-m-d",strtotime($request->input($field)));
 					}
-					
-					// if post is select multiple						
+
+					// if post is select multiple
 					if($f['type'] =='select')
 					{
-						//echo '<pre>'; print_r( $_POST[$field] ); echo '</pre>'; 
+						//echo '<pre>'; print_r( $_POST[$field] ); echo '</pre>';
 						if( isset($f['option']['select_multiple']) &&  $f['option']['select_multiple'] ==1 )
 						{
                             if(isset($_POST[$field]))
 							{
-							$multival = (is_array($_POST[$field]) ? implode(",",$_POST[$field]) :  $_POST[$field]); 
+							$multival = (is_array($_POST[$field]) ? implode(",",$_POST[$field]) :  $_POST[$field]);
 							$data[$field] = $multival;
                             }
                         } else {
 							$data[$field] = $_POST[$field];
-						}	
-					}									
-					
-				}	 						
+						}
+					}
 
-			}	
+				}
+
+			}
 		}
 		 $global	= (isset($this->access['is_global']) ? $this->access['is_global'] : 0 );
-		
+
 		if($global == 0 )
 			$data['entry_by'] = \Session::get('uid');
 		/* Added for Compatibility laravel 5.2 */
@@ -616,7 +616,7 @@ abstract class Controller extends BaseController {
 		foreach($data as $key=>$val)
 		{
 			if($val !='') $values[$key] = $val;
-		}			
+		}
 		return $values;
 
 	}
@@ -628,18 +628,18 @@ abstract class Controller extends BaseController {
 		$order 	= (!is_null($request->input('order')) ? $request->input('order') : '');
 		$rows 	= (!is_null($request->input('rows')) ? $request->input('rows') : '');
 		$md 	= (!is_null($request->input('md')) ? $request->input('md') : '');
-		
+
 		$filter = '?';
-		if($sort!='') $filter .= '&sort='.$sort; 
-		if($order!='') $filter .= '&order='.$order; 
-		if($rows!='') $filter .= '&rows='.$rows; 
+		if($sort!='') $filter .= '&sort='.$sort;
+		if($order!='') $filter .= '&order='.$order;
+		if($rows!='') $filter .= '&rows='.$rows;
 		if($md !='') $filter .= '&md='.$md;
-		 
-		 
+
+
 
 		return Redirect::to($this->data['pageModule'] . $filter);
-	
-	}	
+
+	}
 
 	function injectPaginate()
 	{
@@ -650,14 +650,14 @@ abstract class Controller extends BaseController {
 		$search 	= (isset($_GET['search']) ? $_GET['search'] : '');
 
 		$appends = array();
-		if($sort!='') 	$appends['sort'] = $sort; 
-		if($order!='') 	$appends['order'] = $order; 
-		if($rows!='') 	$appends['rows'] = $rows; 
-		if($search!='') $appends['search'] = $search; 
-		
+		if($sort!='') 	$appends['sort'] = $sort;
+		if($order!='') 	$appends['order'] = $order;
+		if($rows!='') 	$appends['rows'] = $rows;
+		if($search!='') $appends['search'] = $search;
+
 		return $appends;
-			
-	}	
+
+	}
 
 	function returnUrl()
 	{
@@ -666,22 +666,22 @@ abstract class Controller extends BaseController {
 		$order 	= (isset($_GET['order']) ? $_GET['order'] : '');
 		$rows 	= (isset($_GET['rows']) ? $_GET['rows'] : '');
 		$search 	= (isset($_GET['search']) ? $_GET['search'] : '');
-		
+
 		$appends = array();
-		if($pages!='') 	$appends['page'] = $pages; 
-		if($sort!='') 	$appends['sort'] = $sort; 
-		if($order!='') 	$appends['order'] = $order; 
-		if($rows!='') 	$appends['rows'] = $rows; 
-		if($search!='') $appends['search'] = $search; 
-		
+		if($pages!='') 	$appends['page'] = $pages;
+		if($sort!='') 	$appends['sort'] = $sort;
+		if($order!='') 	$appends['order'] = $order;
+		if($rows!='') 	$appends['rows'] = $rows;
+		if($search!='') $appends['search'] = $search;
+
 		$url = "";
 		foreach($appends as $key=>$val)
 		{
 			$url .= "&$key=$val";
 		}
 		return $url;
-			
-	}	
+
+	}
 
 	public function getRemovecurrentfiles( Request $request)
 	{
@@ -698,7 +698,7 @@ abstract class Controller extends BaseController {
 		} else {
 			return Response::json(array('status'=>'error'));
 		}
-	}	
+	}
 
 	public function getRemovefiles( Request $request)
 	{
@@ -713,20 +713,20 @@ abstract class Controller extends BaseController {
 	public function getSearch( $mode = 'native' )
 	{
 
-		$this->data['tableForm'] 	= $this->info['config']['forms'];	
+		$this->data['tableForm'] 	= $this->info['config']['forms'];
 		$this->data['tableGrid'] 	= $this->info['config']['grid'];
 		$this->data['searchMode'] 	= $mode ;
 		$this->data['pageUrl']		= url($this->module);
 		return view('mmb.module.utility.search',$this->data);
-	
+
 	}
 
 	function getDownload( Request $request)
 	{
-	
-		if($this->access['is_excel'] ==0) 
-			return Redirect::to('')->with('messagetext',\Lang::get('core.note_restric'))->with('msgstatus','error');   
-	
+
+		if($this->access['is_excel'] ==0)
+			return Redirect::to('')->with('messagetext',\Lang::get('core.note_restric'))->with('msgstatus','error');
+
 		$info = $this->model->makeInfo( $this->module);
 		// Take param master detail if any
 		$filter = (!is_null($request->input('search')) ? $this->buildSearch() : '');
@@ -734,11 +734,11 @@ abstract class Controller extends BaseController {
 			'params'	=> $filter,
 			'global'	=> (isset($this->access['is_global']) ? $this->access['is_global'] : 0 )
 		);
-		
+
 		$results 	= $this->model->getRows( $params );
 		$fields		= $info['config']['grid'];
 		$rows		= $results['rows'];
-		
+
 		$content = $this->data['pageTitle'];
 		$content .= '<table border="1">';
 		$content .= '<tr>';
@@ -747,29 +747,29 @@ abstract class Controller extends BaseController {
 			if($f['download'] =='1') $content .= '<th style="background:#f9f9f9;">'. $f['label'] . '</th>';
 		}
 		$content .= '</tr>';
-		
+
 		foreach ($rows as $row)
 		{
 			$content .= '<tr>';
 			foreach($fields as $f )
 			{
 				if($f['download'] =='1'):
-					$conn = (isset($f['conn']) ? $f['conn'] : array() );					
+					$conn = (isset($f['conn']) ? $f['conn'] : array() );
 					$content .= '<td>'. \SiteHelpers::gridDisplay($row->$f['field'],$f['field'],$conn) . '</td>';
-				endif;	
+				endif;
 			}
 			$content .= '</tr>';
 		}
 		$content .= '</table>';
-		
+
 		@header('Content-Type: application/ms-excel');
 		@header('Content-Length: '.strlen($content));
 		@header('Content-disposition: inline; filename="'.$title.' '.date("d/m/Y").'.xls"');
-		
+
 		echo $content;
 		exit;
-	
-	}	
+
+	}
 
 
 	public function getExpotion()
@@ -780,19 +780,19 @@ abstract class Controller extends BaseController {
 	public function getExport( Request $request, $t = 'excel')
 	{
 		$info 		= $this->model->makeInfo( $this->module);
-		$filter = '';	
+		$filter = '';
 		if(!is_null($request->input('search')))
 		{
 			$search = 	$this->buildSearch('maps');
 			$filter = $search['param'];
 			$this->data['search_map'] = $search['maps'];
-		} 
+		}
 
 		$params 	= array(
 					'params'	=> $filter ,
 					'fstart'	=> $request->input('fstart'),
-					'flimit'	=> $request->input('flimit')	
-		);		
+					'flimit'	=> $request->input('flimit')
+		);
 
 		$results 	= $this->model->getRows( $params );
 		$fields		= $info['config']['grid'];
@@ -801,15 +801,32 @@ abstract class Controller extends BaseController {
 						'fields' => $fields,
 						'rows' => $rows,
 						'title' => $this->data['pageTitle'],
-					);
-		
-		if($t == 'word')
-		{			
-			 return view('mmb.module.utility.word',$content);
+        );
 
-		} else if($t == 'pdf') {
+		if($t == 'word')
+		{
+            $html=  view('mmb.module.utility.word',$content);
+            return \PDF::load($html,"A2", 'landscape')->show();
+		}
+		else if($t == 'pdf') {
+		    $a = "A2";
+		    if ($content["fields"][0]["alias"] == "hotels"){
+                $a  ="A1";
+            }
+		    if (count($content["fields"]) <= 21){
+                $a = "A3";
+            }
+            if (count($content["fields"]) <= 6){
+                $a = "A4";
+            }
+            //dd($content["fields"]);
+          //  dd(count($content["fields"]));
+            if (count($content["fields"]) <= 3 ){
+                $a = "A5";
+            }
             $html = view('mmb.module.utility.pdf', $content)->render();
-            return \PDF::load($html,'A2', 'landscape')->filename('output.pdf')->download();
+            ///return ($html);
+            return \PDF::load($html,$a, 'landscape')->filename('output.pdf')->download();
 		} else if($t == 'csv') {
 			return view('mmb.module.utility.csv',$content);
 		} else if ($t == 'print') {
@@ -817,29 +834,29 @@ abstract class Controller extends BaseController {
             return $html;
 		} else  {
 			 return view('mmb.module.utility.excel',$content);
-		}	
-	}		
+		}
+	}
 
 	function getLookup( Request $request, $id)
 	{
 		$args = explode("-",$id);
-		if(count($args)>=2) 
+		if(count($args)>=2)
 		{
 
 			$model = '\\App\\Models\\'.ucwords($args['3']);
 			$model = new $model();
 			$info = $model->makeInfo( $args['3'] );
 			$data['pageTitle'] = $info['title'];
-			$data['pageNote'] = $info['note'];			
+			$data['pageNote'] = $info['note'];
 			$params = array(
 				'params'	=> " And ".$args['4'].".".$args['5']." ='". $args['6'] ."'",
 				//'global'	=> (isset($this->access['is_global']) ? $this->access['is_global'] : 0 )
 			);
-			$results = $model->getRows( $params );	
+			$results = $model->getRows( $params );
 			$data['access']		=$model->validAccess($info['id']);
 			$data['rowData']		= $results['rows'];
 			$data['tableGrid'] 	= $info['config']['grid'];
-			$data['tableForm'] 	= $info['config']['forms'];	
+			$data['tableForm'] 	= $info['config']['forms'];
 			$data['colspan']		= \SiteHelpers::viewColSpan($info['config']['grid']);
 			$data['nested_subgrid']	= (isset($info['config']['subgrid']) ? $info['config']['subgrid'] : array());
 			//print_r($data['nested_subgrid']);exit;
@@ -856,21 +873,21 @@ abstract class Controller extends BaseController {
 
 	function detailview( $model , $detail , $id )
 	{
-		
+
 		$info = $model->makeInfo( $detail['module'] );
 		$params = array(
 			'params'	=> " And `".$detail['key']."` ='". $id ."'",
 			'global'	=> (isset($this->access['is_global']) ? $this->access['is_global'] : 0 )
 		);
-		$results = $model->getRows( $params );	
+		$results = $model->getRows( $params );
 		$data['rowData']		= $results['rows'];
 		$data['tableGrid'] 		= $info['config']['grid'];
-		$data['tableForm'] 		= $info['config']['forms'];	
-		
+		$data['tableForm'] 		= $info['config']['forms'];
+
 		return $data;
 
-		
-			
+
+
 	}
 
 
@@ -892,12 +909,12 @@ function detailviewsave( $model ,$request , $detail , $id )
 			$getAllCurrentData = \DB::table($detail['table'])->where($detail['master_key'] , $id  )->get();
 
 			$pkeys = array();
-			for($i=0; $i<$total;$i++) 
+			for($i=0; $i<$total;$i++)
 					$pkeys[] = $request['bulk_'.$relation_key][$i];
 
-			foreach ($getAllCurrentData as $keys) {	
-				if(!in_array($keys->{$relation_key} , $pkeys))		
-				{	
+			foreach ($getAllCurrentData as $keys) {
+				if(!in_array($keys->{$relation_key} , $pkeys))
+				{
 					// Remove If items is not resubmited
 					\DB::table($detail['table'])->where($relation_key,$keys->{$relation_key})->delete();
 				}
@@ -915,16 +932,16 @@ function detailviewsave( $model ,$request , $detail , $id )
 						{
 							$data[$f['field']] = $request['bulk_'.$field][$i];
 						}
-					}			
+					}
 				}
 
 				$rules = self::validateForm($str);
 				$validator = Validator::make($data, $rules);
-				if($validator->passes()) {	
+				if($validator->passes()) {
 					$data[$detail['key']] =  $id ;
 					if($global == 0 )
 						$data['entry_by'] = \Session::get('uid');
-					
+
 					// Check if data currentry exist
 					$check = \DB::table($detail['table'])->where($relation_key , $request['bulk_'.$relation_key][$i]  )->get();
 					if(count($check) >=1)
@@ -932,14 +949,14 @@ function detailviewsave( $model ,$request , $detail , $id )
 						\DB::table($detail['table'])->where($relation_key ,  $request['bulk_'.$relation_key][$i] )->update($data);
 					} else {
 						unset($data[$relation_key]);
-						\DB::table($detail['table'])->insert($data);	
+						\DB::table($detail['table'])->insert($data);
 					}
-				}			
+				}
 
-			}	
-		}	
+			}
+		}
 
-		
+
 
 	}
 }

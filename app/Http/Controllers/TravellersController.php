@@ -321,7 +321,7 @@ class TravellersController extends Controller {
 			return Redirect::to('dashboard')
 				->with('messagetext', \Lang::get('core.note_restric'))->with('msgstatus','error');
 		// delete multipe rows 
-		if(count($request->input('ids')) >=1)
+		if($request->input('ids') && count($request->input('ids')) >=1)
 		{
 			$this->model->destroy($request->input('ids'));
 			

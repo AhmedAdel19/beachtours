@@ -123,10 +123,9 @@
 						<div class="col-md-6">
 							<label class="radio">
 							<input type="radio" name="CNF_ACTIVATION" value="auto"
-{{--								   //old('_token') == null &&--}}
 								   @if(old('CNF_ACTIVATION')  =='auto')
 										checked
-								   		@else @if(old('_token') == null && CNF_ACTIVATION == 'auto')@endif
+								   		@else @if(old('_token') == null && CNF_ACTIVATION == 'auto') checked @endif
 								   @endif class="minimal-red"  />
 							{{ Lang::get('core.fr_registrationauto') }}
 							</label>
@@ -134,7 +133,7 @@
 							<label class="radio">
 							<input type="radio" name="CNF_ACTIVATION"
 								   value="manual"
-								   @if(old('CNF_ACTIVATION') )
+								   @if(old('CNF_ACTIVATION') == "manual")
 								   		checked
 								   @else
 								   		@if(old('_token') == null && CNF_ACTIVATION =='manual') checked @endif
@@ -143,8 +142,7 @@
 							</label>
 							<label class="radio">
 							<input type="radio" name="CNF_ACTIVATION" value="confirmation"
-{{--								   todo--}}
-								   @if(old('CNF_ACTIVATION') )
+								   @if(old('CNF_ACTIVATION')=="confirmation" )
 								   		checked
 									@else
 								   		@if( old('_token')== null && CNF_ACTIVATION =='confirmation') checked @endif
@@ -257,9 +255,7 @@
 					<div class="form-group">
 						<label for="ipt" class=" control-label col-md-4">{{ Lang::get('core.metakey') }} </label>
 						<div class="col-md-6">
-							<textarea class="form-control input-sm"
-									  placeholder="{{ Lang::get('core.keywords') }}" name="cnf_metakey">
-								{{ old('cnf_metakey')? old('cnf_metakey'):CNF_METAKEY }}</textarea>
+							<textarea class="form-control input-sm" placeholder="{{ Lang::get('core.keywords') }}" name="cnf_metakey">{{ old('_token')? old('cnf_metakey'):CNF_METAKEY }}</textarea>
 						</div>
 					  </div>
 
@@ -267,30 +263,30 @@
 						<label  class=" control-label col-md-4">{{ Lang::get('core.metadescription') }}</label>
 						   <div class="col-md-6">
 							   <textarea class="form-control input-sm" placeholder="{{ Lang::get('core.sitedescription') }}"
-									  name="cnf_metadesc">{{ old('cnf_metadesc') ? old('cnf_metadesc'):CNF_METADESC }}</textarea>
+									  name="cnf_metadesc">{{ old('_token') ? old('cnf_metadesc'):CNF_METADESC }}</textarea>
 						   </div>
 					  </div>
-  <div class="form-group">
-		    <label for="ipt" class=" control-label col-md-4">{{ Lang::get('core.googleapicalendar') }}</label>
-			<div class="col-md-6">
-			<input name="cnf_apikey" type="text" id="cnf_apikey" placeholder="AIzaSyA8D5123adQpT390j46leZbo7aw3J6SBFs" class="form-control input-sm"
-				   value="{{ old('cnf_apikey') ? old('cnf_apikey'):CNF_APIKEY }}" />
-			 </div> 
-		  </div>  
+					<div class="form-group">
+						<label for="ipt" class=" control-label col-md-4">{{ Lang::get('core.googleapicalendar') }}</label>
+						<div class="col-md-6">
+						<input name="cnf_apikey" type="text" id="cnf_apikey" placeholder="AIzaSyA8D5123adQpT390j46leZbo7aw3J6SBFs" class="form-control input-sm"
+							   value="{{ old('_token') ? old('cnf_apikey'):CNF_APIKEY }}" />
+						 </div>
+					</div>
             
 		 <div class="form-group">
 		    <label for="ipt" class=" control-label col-md-4">{{ Lang::get('core.googlecalendarid') }}</label>
 			<div class="col-md-6">
 			<input name="cnf_calendarid" type="text" id="cnf_calendarid"
 				   placeholder="en.australian#holiday@group.v.calendar.google.com" class="form-control input-sm"
-				   value="{{ old('cnf_calendarid') ? old('cnf_calendarid'):CNF_CALENDARID }}" />
+				   value="{{ old('_token') ? old('cnf_calendarid'):CNF_CALENDARID }}" />
 			 </div> 
 		  </div>        
 		 <div class="form-group">
 		    <label for="ipt" class=" control-label col-md-4">{{ Lang::get('core.googleanalytics') }}</label>
 			<div class="col-md-6">
 			<input name="cnf_analytics" type="text" id="cnf_analytics" placeholder="UA-XXXXX-X" class="form-control input-sm"
-				   value="{{ old('cnf_analytics') ? old('cnf_analytics'):CNF_ANALYTICS }}" />
+				   value="{{ old('_token') ? old('cnf_analytics'):CNF_ANALYTICS }}" />
 			 </div> 
 		  </div>        
         <div class="form-group">
@@ -303,35 +299,35 @@
 				</p>
 			</label>
 			<div class="col-md-6">
-				<textarea rows="3" class="form-control" name="CNF_RESTRICIP">{{ old('CNF_RESTRICIP') ? old('CNF_RESTRICIP'):CNF_RESTRICIP }}</textarea>
+				<textarea rows="3" class="form-control" name="CNF_RESTRICIP">{{ old('_token') ? old('CNF_RESTRICIP'):CNF_RESTRICIP }}</textarea>
 			</div>
 		</div>
-		  		  
         <div class="form-group">
 			<label for="ipt" class=" control-label col-md-4"> {{ Lang::get('core.fr_allowip') }}	
-							<p><small><i>
-
-								{{ Lang::get('core.fr_allowipsmall') }}  <br />
-								{{ Lang::get('core.fr_allowipexam') }} : <code> 192.116.134.21 , 194.111.606.21 </code>
-							</i></small></p></label>
+				<p>
+					<small>
+						<i>
+							{{ Lang::get('core.fr_allowipsmall') }}<br/>
+							{{ Lang::get('core.fr_allowipexam') }} : <code> 192.116.134.21 , 194.111.606.21 </code>
+						</i>
+					</small>
+				</p>
+			</label>
 			<div class="col-md-6">
-							<textarea rows="3"
-									  class="form-control" name="CNF_ALLOWIP">{{old('CNF_ALLOWIP') ? old('CNF_ALLOWIP'):
-CNF_ALLOWIP }}</textarea>
-    						<p> {{ Lang::get('core.fr_ipnote') }} </p>
-
+				<textarea rows="3" class="form-control" name="CNF_ALLOWIP">{{old('_token') ? old('CNF_ALLOWIP'):CNF_ALLOWIP }}</textarea>
+				<p> {{ Lang::get('core.fr_ipnote') }} </p>
 			</div>
 		</div>
         <div class="form-group">
-		<label for="ipt" class=" control-label col-md-4">&nbsp;</label>
-		<div class="col-md-8">
-			<button class="btn btn-primary" type="submit"> {{ Lang::get('core.sb_savechanges') }}</button>
-		 </div> 
-	  </div>
-    </div>	
-	 </div>
- {!! Form::close() !!}
-</div>
+			<label for="ipt" class=" control-label col-md-4">&nbsp;</label>
+			<div class="col-md-8">
+				<button class="btn btn-primary" type="submit"> {{ Lang::get('core.sb_savechanges') }}</button>
+			</div>
+		</div>
+				</div>
+			</div>
+			{!! Form::close() !!}
+		</div>
 </div>
 	<div style="clear: both;"></div>
 @stop
