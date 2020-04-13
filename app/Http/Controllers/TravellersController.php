@@ -17,7 +17,7 @@ class TravellersController extends Controller {
 	public function __construct()
 	{
 		
-		$this->beforeFilter('csrf', array('on'=>'post'));
+		//$this->beforeFilter('csrf', array('on'=>'post'));
 		$this->model = new Travellers();
 		
 		$this->info = $this->model->makeInfo( $this->module);

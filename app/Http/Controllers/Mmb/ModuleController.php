@@ -358,7 +358,7 @@ class ModuleController extends Controller {
 
     public function postSavesetting( Request $request)
     {
-        $this->beforeFilter('csrf', array('on'=>'post'));
+        //$this->beforeFilter('csrf', array('on'=>'post'));
         
         $id = $request->input('module_id');
         $row = \DB::table('tb_module')->where('module_id', $id)

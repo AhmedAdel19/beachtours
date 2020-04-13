@@ -17,7 +17,7 @@ class FaqsController extends Controller {
 	public function __construct()
 	{
 		
-		$this->beforeFilter('csrf', array('on'=>'post'));
+		//$this->beforeFilter('csrf', array('on'=>'post'));
 		$this->model = new Faqs();
 		
 		$this->info = $this->model->makeInfo( $this->module);

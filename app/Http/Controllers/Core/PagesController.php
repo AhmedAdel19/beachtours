@@ -19,7 +19,7 @@ class PagesController extends Controller {
 	{
 		
 		parent::__construct();
-		$this->beforeFilter('csrf', array('on'=>'post'));
+		//$this->beforeFilter('csrf', array('on'=>'post'));
 		$this->model = new Pages();
 		$this->info = $this->model->makeInfo( $this->module);
 		$this->access = $this->model->validAccess($this->info['id']);

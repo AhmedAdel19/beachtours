@@ -147,7 +147,7 @@ class HomeController extends Controller {
 	public  function  postContact( Request $request)
 	{
 	
-		$this->beforeFilter('csrf', array('on'=>'post'));
+		//$this->beforeFilter('csrf', array('on'=>'post'));
 		$rules = array(
 				'name'		=>'required',
 				'subject'	=>'required',

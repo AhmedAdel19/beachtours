@@ -19,7 +19,7 @@ class PostsController extends Controller {
 	{
 		
 		parent::__construct();
-		$this->beforeFilter('csrf', array('on'=>'post'));
+		//$this->beforeFilter('csrf', array('on'=>'post'));
 		$this->model = new Posts();
 		
 		$this->info = $this->model->makeInfo( $this->module);

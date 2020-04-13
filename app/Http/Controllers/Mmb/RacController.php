@@ -17,7 +17,7 @@ class RacController extends Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->beforeFilter('csrf', array('on'=>'post'));
+		//$this->beforeFilter('csrf', array('on'=>'post'));
 		$this->model = new Rac();
 		
 		$this->info = $this->model->makeInfo( $this->module);

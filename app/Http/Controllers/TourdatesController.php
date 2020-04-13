@@ -20,7 +20,7 @@ class TourdatesController extends Controller {
 	public function __construct()
 	{
 		
-		$this->beforeFilter('csrf', array('on'=>'post'));
+		//$this->beforeFilter('csrf', array('on'=>'post'));
 		$this->model = new Tourdates();
 		
 		$this->info = $this->model->makeInfo( $this->module);

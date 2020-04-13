@@ -26,7 +26,7 @@ define('CNF_RECAPTCHA','false');
 define('CNF_THEME','leo');
 define('CNF_RECAPTCHAPUBLICKEY','');
 define('CNF_RECAPTCHAPRIVATEKEY','');
-define('CNF_MODE','development');
+define('CNF_MODE','production');
 define('CNF_LOGO','logo.jpg');
 define('CNF_HEADERIMAGE','header.jpg');
 define('CNF_ALLOWIP','');

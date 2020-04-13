@@ -17,7 +17,7 @@ class SupportController extends Controller {
 	public function __construct()
 	{
 		
-		$this->beforeFilter('csrf', array('on'=>'post'));
+		//$this->beforeFilter('csrf', array('on'=>'post'));
 		$this->model = new Support();
 		
 		$this->info = $this->model->makeInfo( $this->module);
