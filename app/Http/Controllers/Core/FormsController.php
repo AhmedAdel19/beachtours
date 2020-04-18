@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\controller;
 use App\Models\Core\Forms;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
-use Validator, Input, Redirect ; 
+use Illuminate\Support\Facades\Schema;
+use Validator, Input, Redirect ;
 
 
 class FormsController extends Controller {
@@ -18,6 +20,7 @@ class FormsController extends Controller {
 	{
 		
 		parent::__construct();
+		//todo remove this function with laravel newer versions
 		$this->beforeFilter('csrf', array('on'=>'post'));
 		$this->model = new Forms();
 		
@@ -100,13 +103,13 @@ class FormsController extends Controller {
 
 	function getUpdate(Request $request, $id = null)
 	{
-	
+
 		if($id =='')
 		{
 			if($this->access['is_add'] ==0 )
 			return Redirect::to('dashboard')->with('messagetext',\Lang::get('core.note_restric'))->with('msgstatus','error');
-		}	
-		
+		}
+
 		if($id !='')
 		{
 			if($this->access['is_edit'] ==0 )
@@ -132,7 +135,7 @@ class FormsController extends Controller {
 	public function getShow( Request $request, $id = null)
 	{
 
-		if($this->access['is_detail'] ==0) 
+		if($this->access['is_detail'] ==0)
 		return Redirect::to('dashboard')
 			->with('messagetext', \Lang::get('core.note_restric'))->with('msgstatus','error');
 					
@@ -402,9 +405,7 @@ class FormsController extends Controller {
         while ($row =  $Q->fetch()) {
             $rows[] = $row;
         } 
-        return $rows;    
-
-    
+        return $rows;
     }    
 
     function getConfiguration( Request $request, $ids)
@@ -416,16 +417,11 @@ class FormsController extends Controller {
 		usort($configuration, "\SiteHelpers::_sort");
 		foreach($configuration as $rows){
 		  $id = ++$i;
-		  $forms[] = self::convertForm( $ids , $rows , $id); 
-
+		  $forms[] = self::convertForm( $ids , $rows , $id);
 		}
 		$data['forms'] = $forms;
-		$data['row']	= $row ;
-
+		$data['row'] = $row ;
 		return view('core.forms.configuration',$data);
-
-		
-
     } 
   
   	function getInput( Request $request, $id )
@@ -477,7 +473,6 @@ class FormsController extends Controller {
 
     function getField( Request $request ,$id)
     {
-
  		$row = $this->model->find($id);
 		$configuration = json_decode($row->configuration,true);
 		$i = 0; $forms = array();
@@ -487,7 +482,7 @@ class FormsController extends Controller {
             $tooltip = '';$attribute = '';
             if(isset($form['option']['tooltip'])) $tooltip = $form['option']['tooltip'];
             if(isset($form['option']['attribute'])) $attribute = $form['option']['attribute'];
-            $size = isset($form['size']) ? $form['size'] : 'span12'; 
+            $size = isset($form['size']) ? $form['size'] : 'span12';
             if($form['field'] == $field_id)
             {
                 //$multiVal = explode(":",$form['option']['lookup_value']);
@@ -523,8 +518,10 @@ class FormsController extends Controller {
                         'tooltip'                => $tooltip ,
                         'attribute'                => $attribute,
                         'extend_class'            => isset( $form['option']['extend_class'])?$form['option']['extend_class']:''
-                        ),    
-                    );                
+                    ),
+                );
+            }else {
+                return "";
             }
         }
 
@@ -541,6 +538,7 @@ class FormsController extends Controller {
             'hidden'        => 'Hidden',
                     
         );
+
         $this->data['f']     = $f; 
         $this->data['row']     = $row; 
         $this->data['tables']        = Forms::getTableList($this->db);   
@@ -552,17 +550,16 @@ class FormsController extends Controller {
 
     function postField( Request $request,$formID)
     {
-
-    
         $lookup_value = (is_array($request->input('lookup_value')) ? implode("|",array_filter($request->input('lookup_value'))) : '');        
         $row = \DB::table('tb_forms')->where('formID', $formID)
-                                ->get();
+            ->get();
+
         if(count($row) <= 0){
              return Redirect::to('core/forms/update/'.$formID)->with('messagetext','Can not find module')->with('msgstatus','error');        
         }
         $row = $row[0];                                    
         $this->data['row'] = $row;    
-        $config = json_decode($row->configuration,true);     
+        $config = json_decode($row->configuration,true);
 
         $view = 0;$search = 0;
         if(!is_null($request->input('view'))) $view = 1; 
@@ -589,7 +586,6 @@ class FormsController extends Controller {
         }  else {
             $datalist = '';
         }
-                 
         $new_field = array(
             "field"         => \SiteHelpers::seoUrl($request->input('field')),
             "alias"         => $request->input('alias'),
@@ -643,53 +639,43 @@ class FormsController extends Controller {
 	                $new_form  = $form_view;
 	            }    
 	            $forms[] = $new_form ;
-	    
-	        } 
-	    }       
-    	  
-        \DB::table('tb_forms')->where('formID', '=',$formID )->update(array('configuration' => json_encode($forms))); 
-         return json_encode(array('status'=>"success")); 
 
-                
-         
-    }    
+	        }
+	    }
 
-
-    function getRemovefield( Request $request,$formID ,$field)
-    {
-
-    
-   
-        $row = \DB::table('tb_forms')->where('formID', $formID)
-                                ->get();
-        if(count($row) <= 0){
-             return Redirect::to('core/forms/update/'.$formID)->with('messagetext','Can not find module')->with('msgstatus','error');        
+        if (!Schema::hasColumn($row->tablename, $request->input("field"))) {
+            $newColumnType = 'string';
+            $newColumnName = $request->input("field");
+            Schema::table($row->tablename, function ( Blueprint $table) use ($newColumnType, $newColumnName) {
+                $table->$newColumnType($newColumnName);
+            });
         }
 
+        \DB::table('tb_forms')->where('formID', '=',$formID )->update(array('configuration' => json_encode($forms)));
+         return json_encode(array('status'=>"success"));
+    }
+
+    function getRemovefield( Request $request,$formID ,$field="")
+    {
+        $row = \DB::table('tb_forms')->where('formID', $formID)->get();
+        if(count($row) <= 0){
+             return Redirect::to('core/forms/update/'.$formID)->with('messagetext','Can not find module')->with('msgstatus','error');
+        }
         $row = $row[0];                                    
         $this->data['row'] = $row;    
-        $config = json_decode($row->configuration,true);     
-
-
+        $config = json_decode($row->configuration,true);
         $forms = array();
         foreach($config as $form_view)
         {
             if($form_view['field'] != $field)  $forms[] = $form_view ;
-    
-        } 
-	           	  
+        }
         \DB::table('tb_forms')->where('formID', '=',$formID )->update(array('configuration' => json_encode($forms))); 
-         return json_encode(array('status'=>"success")); 
-
-                
-         
+        return json_encode(array('status'=>"success"));
     }     
    
 
    function postReorder( Request $request , $ids )
    {
-		
-   		
 		$row = $this->model->find($ids);
 		$configuration = json_decode($row->configuration,true);
 		$i = 0; $forms = array();
