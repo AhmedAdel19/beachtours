@@ -21,7 +21,7 @@ define('CNF_SHOWHELP','ON');
 define('CNF_MULTILANG','0');
 define('CNF_LANG','en');
 define('CNF_REGIST','true');
-define('CNF_FRONT','false');
+define('CNF_FRONT','true');
 define('CNF_RECAPTCHA','false');
 define('CNF_THEME','leo');
 define('CNF_RECAPTCHAPUBLICKEY','');

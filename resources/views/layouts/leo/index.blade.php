@@ -140,8 +140,8 @@ ga('send', 'pageview');
         <div class="header">
           <div class="header-inner container">
             <div class="header-brand">
-              <a class="header-brand-text" href="{{ url() }}" title="Home">
-                <a href="{{ url() }}">@if(file_exists(public_path().'/mmb/images/'.CNF_LOGO) && CNF_LOGO !='')
+              <a class="header-brand-text" href="{{ url("/") }}" title="Home">
+                <a href="{{ url("/") }}">@if(file_exists(public_path().'/mmb/images/'.CNF_LOGO) && CNF_LOGO !='')
         <img src="{{ URL::asset('mmb/images/'.CNF_LOGO)}}" style="height:70px" />
         @else
                   <h1>

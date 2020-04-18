@@ -39,7 +39,7 @@
 					<td>
 						 	@if($access['is_detail'] ==1)
 								@if($row->default == 1)
-                                <a href="{{ url()}}" class="tips" title="{{ Lang::get('core.btn_view') }}" target="_blank"><i class="fa  fa-eye fa-2x"></i> </a>
+                                <a href="{{ url("/")}}" class="tips" title="{{ Lang::get('core.btn_view') }}" target="_blank"><i class="fa  fa-eye fa-2x"></i> </a>
 								@else
 								<a href="{{ url($row->alias)}}" class="tips" title="{{ Lang::get('core.btn_view') }}" target="_blank"><i class="fa fa-eye fa-2x "></i> </a>
 								@endif

@@ -88,7 +88,7 @@ class NotificationController extends Controller {
 		// Master detail link if any 
 		$this->data['subgrid']	= (isset($this->info['config']['subgrid']) ? $this->info['config']['subgrid'] : array()); 
 		// Render into template
-		return view('notification.index',$this->data);
+		//return view('notification.index',$this->data);
 	}	
 
 

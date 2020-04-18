@@ -176,9 +176,9 @@ class HomeController extends Controller {
 			}
 
 
-	
 
-			return Redirect::to($request->input('redirect'))->with('message', \SiteHelpers::alert('success','Thank You , Your message has been sent !'));	
+
+			return Redirect::to($request->input('redirect'))->with('message', \SiteHelpers::alert('success','Thank You , Your message has been sent !'));
 				
 		} else {
 			return Redirect::to($request->input('redirect'))->with('message', \SiteHelpers::alert('error','The following errors occurred'))
@@ -205,8 +205,14 @@ class HomeController extends Controller {
 			$data = \FormHelpers::validatePost($request , $configuration);	
 			if($row->method =='table')
 			{
+                try {
+                    \DB::table($row->tablename)->insert($data);
+                }catch (\Exception $exception){
+                    return
+                        Redirect::back()
+                            ->with('message', \SiteHelpers::alert('error','Sorry, something went wrong.'));
+                }
 
-				\DB::table($row->tablename)->insert($data);
 				if($row->redirect !='')
 				{
 					echo '<script> window.location.href= "'.$row->redirect.'" </script>';

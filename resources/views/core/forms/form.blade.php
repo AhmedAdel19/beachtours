@@ -1,33 +1,41 @@
 @extends('layouts.app')
 @section('content')
 <section class="content-header">
-      <h1>{{ Lang::get('core.formsettings') }} </h1>
-    </section>
+	<h1>{{ Lang::get('core.formsettings') }} </h1>
+</section>
 <div class="content">
-    <div class="box box-primary">
+	<div class="box box-primary">
         <div class="box-header with-border">
             <div class="box-header-tools pull-left">
-			<a href="{{ url($pageModule.'?return='.$return) }}" class="tips"  title="{{ Lang::get('core.btn_back') }}" ><i class="fa  fa-arrow-left fa-2x"></i></a> 
-			<a class="btn btn-xs btn-default tips" title="Documentation" href="{{ url('core/forms/docs') }}" onclick="MmbModal(this.href,'Documentation'); return false;"><i class="fa fa-book"></i></a>
+				<a href="{{ url($pageModule.'?return='.$return) }}" class="tips"
+				   title="{{ Lang::get('core.btn_back') }}"
+				>
+					<i class="fa  fa-arrow-left fa-2x"></i>
+				</a>
+				<a class="btn btn-xs btn-default tips" title="Documentation" href="{{ url('core/forms/docs') }}"
+				   onclick="MmbModal(this.href,'Documentation'); return false;"
+				>
+					<i class="fa fa-book"></i>
+				</a>
+			</div>
 		</div>
-	</div>
-        		<ul class="parsley-error-list">
+		<ul class="parsley-error-list">
 			@foreach($errors->all() as $error)
 				<li>{{ $error }}</li>
 			@endforeach
-		</ul>	
-		 {!! Form::open(array('url'=>'core/forms/save?return='.$return, 'class'=>'form-vertical','files' => true , 'parsley-validate'=>'','novalidate'=>' ')) !!}
-<div class="col-md-4">
-				{!! Form::hidden('formID', $row['formID']) !!}					
-									  <div class="form-group  " >
-										<label for="ipt" class=" control-label "> Form Name  <span class="asterix"> * </span>  </label>									
-										  {!! Form::text('name', $row['name'],array('class'=>'form-control', 'placeholder'=>'', 'required'=>'true'  )) !!} 						
-									  </div> 					
-									  <div class="form-group  methodstore" >
-										<label for="ipt" class=" control-label "> Save Submited form to  <span class="asterix"> * </span>  </label>									
-										  <br />
-												<label class='radio radio-inline'>
-												<input type='radio' name='method' value ='table' required @if($row['method'] == 'table') checked="checked" @endif > Database </label> <br />
+		</ul>
+		{!! Form::open(array('url'=>'core/forms/save?return='.$return, 'class'=>'form-vertical','files' => true , 'parsley-validate'=>'','novalidate'=>' ')) !!}
+		<div class="col-md-4">
+			{!! Form::hidden('formID', $row['formID']) !!}
+			<div class="form-group">
+				<label for="ipt" class=" control-label ">Form Name<span class="asterix">*</span></label>
+				{!! Form::text('name', $row['name'],array('class'=>'form-control', 'placeholder'=>'', 'required'=>'true'  )) !!}
+			</div>
+			<div class="form-group  methodstore" >
+				<label for="ipt" class=" control-label "> Save Submited form to  <span class="asterix"> * </span>  </label>
+				<br />
+				<label class='radio radio-inline'>
+					<input type='radio' name='method' value ='table' required @if($row['method'] == 'table') checked="checked" @endif > Database </label> <br />
 												<label class='radio radio-inline'>
 												<input type='radio' name='method' value ='email' required @if($row['method'] == 'email') checked="checked" @endif > Send To Email </label> 						
 									  </div> 					
@@ -71,7 +79,7 @@
 				  </div>
 			</div>
 			<div class="col-md-8" style="background: #e9e9e9; min-height: 600px; border: solid 1px #ddd;" > 		
-				<div style="padding: 15px 15px;  " id="formConfig">					
+				<div style="padding: 15px 15px;" id="formConfig">
 				</div>
 			</div>
 			<div style="clear:both"></div>	
@@ -86,12 +94,11 @@
 </style> 
    <script type="text/javascript">
 	$(document).ready(function() { 
-		
 		//$('#formConfig').get('{{ url("forms/configuration/".$row["formID"]) }}');
 		<?php if($row['formID'] !='') { ?>
 		$.get( '{{ url("core/forms/configuration/".$row["formID"]) }}', function( data ) {
 			  $( '#formConfig' ).html( data );
-			 
+
 			});
 		<?php } ?>
 		 
