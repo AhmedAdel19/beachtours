@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <section class="content-header">
-	<h1> {{ Lang::get('core.formsettings') }} </h1>
+	<h1>{{Lang::get('core.formsettings')}}</h1>
 </section>
 <div class="content">
     <div class="box box-primary">
@@ -41,40 +41,54 @@
 				<br />
 				<label class='radio radio-inline'>
 					<input type='radio' name='method' value ='email' required @if($row['method'] == 'email')
-					checked="checked" @endif > Send To Email
+					checked="checked" @endif >
+					Send To Email
 				</label>
 			</div>
 			<div class="form-group  " id="tablename" >
-			<label for="ipt" class=" control-label "> Tablename    </label>
-				{!! Form::select('tablename', $tables , $row['tablename'] ,array('class'=>'form-control ', 'required'=>'true' )); !!}
+			<label for="ipt" class=" control-label ">Table name</label>
+				@if(!($row['tablename']))
+					{!! Form::select('tablename', $tables , $row['tablename'] ,array('class'=>'form-control ','placeholder'=>'Please select table', 'required'=>'true' )) !!}
+				@else
+					{!! Form::text('tablename', $row['tablename'],array('class'=>'form-control', 'placeholder'=>'','readonly', 'required'=>'true'  )) !!}
+				@endif
 			</div>
 			<div class="form-group  " id="email"  >
 			<label for="ipt" class=" control-label "> Email Address    </label>
 			  {!! Form::text('email', $row['email'],array('class'=>'form-control', 'placeholder'=>'',   )) !!}
 			</div>
-			<div class="form-group" >
-			<label for="ipt" class=" control-label "> Send Copy to visitor? <span class="asterix"> * </span>  </label>
-			  <br />
-					<label class='radio radio-inline'>
-					<input type='radio' name='sendcopy' value ='1' required @if($row['sendcopy'] == '1') checked="checked" @endif > YES </label> <br />
-					<label class='radio radio-inline'>
-					<input type='radio' name='sendcopy' value ='0' required @if($row['sendcopy'] == '0') checked="checked" @endif > NO </label>
+			<div class="form-group">
+				<label for="ipt" class=" control-label "> Send Copy to visitor? <span class="asterix"> * </span>
+				</label>
+				<br />
+				<label class='radio radio-inline'>
+					<input type='radio' name='sendcopy' value ='1'
+						   required @if($row['sendcopy'] == '1')checked="checked" @endif
+					>
+					YES
+				</label>
+				<br />
+				<label class='radio radio-inline'>
+					<input type='radio' name='sendcopy'
+						   value ='0'
+						   required
+						   @if($row['sendcopy'] == '0') checked="checked" @endif
+					>
+					NO
+				</label>
 			</div>
 			<div class="form-group  " >
-			<label for="ipt" class=" control-label "> After save Redirect to ?    </label>
-			  {!! Form::text('redirect', $row['redirect'],array('class'=>'form-control', 'placeholder'=>'',   )) !!}
-			  <i style="font-size: 9px; " class="text-success"> Leave blank or (.) mark if want to stay on current page after submited </i>
+				<label for="ipt" class=" control-label "> After save Redirect to ?</label>
+				{!! Form::text('redirect', $row['redirect'],array('class'=>'form-control', 'placeholder'=>'',   )) !!}
+				<i style="font-size: 9px; " class="text-success"> Leave blank or (.) mark if want to stay on current page after submited </i>
 			</div>
-
-			<div class="form-group  " >
-			<label for="ipt" class=" control-label "> Successed Note  <span class="asterix"> * </span>  </label>
-			  <textarea name='success' rows='3' id='success' class='form-control '
-			required  >{{ $row['success'] }}</textarea>
+			<div class="form-group">
+			<label for="ipt" class="control-label"> Success Note  <span class="asterix">*</span></label>
+				<textarea name='success' rows='3' id='success' class='form-control' required  >{{ $row['success'] }}</textarea>
 			</div>
-			<div class="form-group  " >
-			<label for="ipt" class=" control-label "> Failed Note  <span class="asterix"> * </span>  </label>
-			  <textarea name='failed' rows='3' id='failed' class='form-control '
-			required  >{{ $row['failed'] }}</textarea>
+			<div class="form-group">
+				<label for="ipt" class=" control-label "> Failed Note  <span class="asterix"> * </span>  </label>
+				<textarea name='failed' rows='3' id='failed' class='form-control' required>{{ $row['failed'] }}</textarea>
 			</div>
 			<div class="form-group" style="margin-bottom: 30px;">
 			<button type="submit" name="apply" class="btn btn-info btn-sm" > {{ Lang::get('core.sb_apply') }}</button>
@@ -86,25 +100,24 @@
 				<div style="padding: 15px 15px;  " id="formConfig">
 				</div>
 			</div>
-			<div style="clear:both"></div>
-		 {!! Form::close() !!}
-		  </div>
-		</div>
+		<div style="clear:both"></div>
+		{!! Form::close() !!}
+	</div>
+</div>
 <style type="text/css">
 	ul.availableinput { padding: 0; margin-bottom: 0; list-style: none; }
 	ul.availableinput li{ }
-	ul.availableinput li a{ color: #777; display: block; padding: 5px 10px; border: solid 1px #eee; border-bottom: none;  background: #fff; }
-
+	ul.availableinput
+	li a{ color: #777; display: block; padding: 5px 10px; border: solid 1px #eee; border-bottom: none;  background: #fff; }
 </style>
    <script type="text/javascript">
 	$(document).ready(function() {
-
 		//$('#formConfig').get('{{ url("forms/configuration/".$row["formID"]) }}');
-		<?php if($row['formID'] !='') { ?>
+		@if($row['formID'] !='')
 			$.get( '{{ url("core/forms/configuration/".$row["formID"]) }}', function( data ) {
 				$( '#formConfig' ).html( data );
 			});
-		<?php } ?>
+		@endif
 		$('.removeMultiFiles').on('click',function(){
 			var removeUrl = '{{ url("core/forms/removefiles?file=")}}'+$(this).attr('url');
 			$(this).parent().remove();
@@ -114,23 +127,21 @@
 		});
 
 		$('.methodstore input:radio').on('ifClicked', function() {
-		  val = $(this).val();
-
+			val = $(this).val();
 			if(val == 'table')
 			{
 				$('#tablename').show();
 				$('#email').hide();
-			} else if( val =='email') {
+			}
+			else if( val =='email') {
 				$('#email').show();
 				$('#tablename').hide();
-
-			} else {
+			}
+			else {
 				$('#tablename').hide();
 				$('#email').hide();
 			}
-
 		});
-
 	});
 	</script>
 @stop

@@ -1,6 +1,7 @@
 <?php  namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Library\Markdown;
+use Illuminate\Support\Facades\Log;
 use Mail;
 use Validator, Input, Redirect ; 
 
@@ -187,8 +188,6 @@ class HomeController extends Controller {
 	}	
 
 
-
-
 	function postProccess( Request $request , $formID )
 	{
 		//$row = $this->model->find($formID);
@@ -206,7 +205,15 @@ class HomeController extends Controller {
 			if($row->method =='table')
 			{
 
-				\DB::table($row->tablename)->insert($data);
+                try {
+                    \DB::table($row->tablename)->insert($data);
+
+                }catch (\Exception $e){
+                    Log::debug('DB Error:');
+                    Log::debug($e->getMessage());
+                    return Redirect::back()->with('message',
+                        \SiteHelpers::alert('error',"Some Went wrong, please contact support"));
+                }
 				if($row->redirect !='')
 				{
 					echo '<script> window.location.href= "'.$row->redirect.'" </script>';
