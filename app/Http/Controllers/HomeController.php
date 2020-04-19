@@ -1,6 +1,7 @@
 <?php  namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Library\Markdown;
+use Illuminate\Support\Facades\Log;
 use Mail;
 use Validator, Input, Redirect ; 
 
@@ -147,7 +148,7 @@ class HomeController extends Controller {
 	public  function  postContact( Request $request)
 	{
 	
-		//$this->beforeFilter('csrf', array('on'=>'post'));
+		$this->beforeFilter('csrf', array('on'=>'post'));
 		$rules = array(
 				'name'		=>'required',
 				'subject'	=>'required',
@@ -176,17 +177,15 @@ class HomeController extends Controller {
 			}
 
 
+	
 
-
-			return Redirect::to($request->input('redirect'))->with('message', \SiteHelpers::alert('success','Thank You , Your message has been sent !'));
+			return Redirect::to($request->input('redirect'))->with('message', \SiteHelpers::alert('success','Thank You , Your message has been sent !'));	
 				
 		} else {
 			return Redirect::to($request->input('redirect'))->with('message', \SiteHelpers::alert('error','The following errors occurred'))
 			->withErrors($validator)->withInput();
 		}		
 	}	
-
-
 
 
 	function postProccess( Request $request , $formID )
@@ -205,14 +204,16 @@ class HomeController extends Controller {
 			$data = \FormHelpers::validatePost($request , $configuration);	
 			if($row->method =='table')
 			{
+
                 try {
                     \DB::table($row->tablename)->insert($data);
-                }catch (\Exception $exception){
-                    return
-                        Redirect::back()
-                            ->with('message', \SiteHelpers::alert('error','Sorry, something went wrong.'));
-                }
 
+                }catch (\Exception $e){
+                    Log::debug('DB Error:');
+                    Log::debug($e->getMessage());
+                    return Redirect::back()->with('message',
+                        \SiteHelpers::alert('error',"Some Went wrong, please contact support"));
+                }
 				if($row->redirect !='')
 				{
 					echo '<script> window.location.href= "'.$row->redirect.'" </script>';
