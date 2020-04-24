@@ -22,7 +22,7 @@ define('CNF_MULTILANG','0');
 define('CNF_LANG','en');
 define('CNF_REGIST','true');
 define('CNF_FRONT','true');
-define('CNF_RECAPTCHA','false');
+define('CNF_RECAPTCHA','true');
 define('CNF_THEME','leo');
 define('CNF_RECAPTCHAPUBLICKEY','');
 define('CNF_RECAPTCHAPRIVATEKEY','');

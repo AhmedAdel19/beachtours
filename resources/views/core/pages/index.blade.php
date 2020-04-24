@@ -41,7 +41,6 @@
 								@if($row->default == 1)
                                 <a href="{{ url("/")}}" class="tips" title="{{ Lang::get('core.btn_view') }}" target="_blank"><i class="fa  fa-eye fa-2x"></i> </a>
 {{--									todo remove this funtion with the newer version--}}
-                                <a href="{{ url()}}" class="tips" title="{{ Lang::get('core.btn_view') }}" target="_blank"><i class="fa  fa-eye fa-2x"></i> </a>
 								@else
 								<a href="{{ url($row->alias)}}" class="tips" title="{{ Lang::get('core.btn_view') }}" target="_blank"><i class="fa fa-eye fa-2x "></i> </a>
 								@endif

@@ -4,9 +4,8 @@
 			{!! AjaxHelpers::buttonActionCreate($pageModule,$setting) !!}
             @endif
             @endif
-        
-			@if($access['is_clone'] ==1)	
-        <a href="javascript://ajax" class="tips text-blue" onclick="ajaxCopy('#{{ $pageModule }}','{{ $pageUrl }}')" title="{{ Lang::get('core.btn_copy') }}"><i class="fa fa-copy fa-2x" data-toggle="confirmation" data-title="{{Lang::get('core.rusure')}}"  data-content="{{ Lang::get('core.rusureyouwanttocopythis') }}"></i> </a>
+			@if(isset($access['is_clone']) && $access['is_clone'] ==1)
+				<a href="javascript://ajax" class="tips text-blue" onclick="ajaxCopy('#{{ $pageModule }}','{{ $pageUrl }}')" title="{{ Lang::get('core.btn_copy') }}"><i class="fa fa-copy fa-2x" data-toggle="confirmation" data-title="{{Lang::get('core.rusure')}}"  data-content="{{ Lang::get('core.rusureyouwanttocopythis') }}"></i> </a>
 			@endif
 			@if($access['is_remove'] ==1)
 			<a href="javascript://ajax" class="tips text-red" title="{{ Lang::get('core.btn_remove') }}" onclick="ajaxRemove('#{{ $pageModule }}','{{ $pageUrl }}');"><i class="fa fa-trash-o fa-2x" data-toggle="confirmation" data-title="{{Lang::get('core.rusure')}}"  data-content="{{ Lang::get('core.rusuredelete') }}"></i></a>

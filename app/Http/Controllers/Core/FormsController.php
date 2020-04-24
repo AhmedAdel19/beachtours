@@ -20,9 +20,8 @@ class FormsController extends Controller {
 	{
 		
 		parent::__construct();
-		//$this->beforeFilter('csrf', array('on'=>'post'));
 		//todo remove this function with laravel newer versions
-		$this->beforeFilter('csrf', array('on'=>'post'));
+		//$this->beforeFilter('csrf', array('on'=>'post'));
 		$this->model = new Forms();
 		
 		$this->info = $this->model->makeInfo( $this->module);
